@@ -45,10 +45,14 @@
   (editorconfig-mode 1))
 
 ;;
-;; General config
+;; Display config
 ;;
 
 (setq column-number-mode t)
+
+;;(use-package solarized-theme
+;;  :config
+;;  (load-theme 'solarized-light t))
 
 ;;
 ;; C/C++ Config
