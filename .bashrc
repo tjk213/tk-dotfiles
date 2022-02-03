@@ -52,6 +52,20 @@ alias python='python3'
 export EDITOR=emacs
 
 ##
+## History
+##
+
+export HISTSIZE=-1 # no limit
+export HISTCONTROL="ignorespace:ignoredups:erasedups"
+
+shopt -s cmdhist # attempt to save all lines of a multi-line command in the same entry
+shopt -s histappend # When the shell exits, append to the history file instead of overwriting it
+
+# After each command, append to the history file.
+# Use `history -c; history -r` to read all terminal history into a specific terminal.
+export PROMPT_COMMAND="${PROMPT_COMMAND};history -a"
+
+##
 ## Functions
 ##
 
