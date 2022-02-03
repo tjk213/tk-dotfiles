@@ -25,6 +25,12 @@ fi
 ##
 ## Fundamental aliases
 ##
+## Some of these make use of GNU coreutils - see setup_macos.sh
+##
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    alias ls='gls'
+fi
 
 ## ll - list directory
 ##
