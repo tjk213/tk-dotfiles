@@ -66,3 +66,10 @@
 
 (setq c-default-style "bsd"
       c-basic-offset 4)
+
+(defun c-format-hook ()
+  (setq c-basic-offset 4)
+  (c-set-offset 'innamespace 0))
+
+(add-hook 'c-mode-common-hook 'c-format-hook)
+
