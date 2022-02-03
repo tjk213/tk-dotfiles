@@ -56,6 +56,10 @@
 ;;  :config
 ;;  (load-theme 'solarized-light t))
 
+(use-package beacon
+  :config
+  (beacon-mode 1))
+
 ;;
 ;; C/C++ Config
 ;;
