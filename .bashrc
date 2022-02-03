@@ -82,3 +82,27 @@ export PROMPT_COMMAND="${PROMPT_COMMAND}${PROMPT_COMMAND:+;}history -a"
 function it2sp {
     echo -e "\033]50;SetProfile=$1\a"
 }
+
+## bytes-to-gigabytes [column_number=1] [skip_first_N_lines=0]
+##
+##  Filter input line-by-line, converting number of bytes in given column to
+##  gigabytes (er, to be precise, gibibytes (GiB)) with two decimal places
+##  displayed.
+##
+bytes-to-gigabytes()
+{
+    col="$1"
+    skip_lines="$2"
+
+    if [[ $col == "" ]]; then
+	col="1"
+    fi
+
+    if [[ $skip_lines == "" ]]; then
+	skip_lines="0"
+    fi
+
+    awk "NR>${skip_lines} { \$${col}=sprintf(\"%.2fG\",\$${col}/1024/1024);}{ print;}"
+}
+
+export -f bytes-to-gigabytes
