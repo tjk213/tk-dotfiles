@@ -30,6 +30,7 @@ fi
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
     alias ls='gls'
+    alias rgrep='ggrep -r --line-number --binary-files=without-match --color=auto'
 fi
 
 ## ll - list directory
