@@ -39,6 +39,7 @@ alias ll='ls -lhBv --group-directories-first --color=auto'
 
 alias e='emacs'
 alias python='python3'
+alias grep='grep --color=auto'
 
 ##
 ## Fundamental Environment Vars
