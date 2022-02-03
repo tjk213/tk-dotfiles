@@ -44,6 +44,8 @@
   :config
   (editorconfig-mode 1))
 
+(use-package markdown-mode)
+
 ;;
 ;; Display config
 ;;
