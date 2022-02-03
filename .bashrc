@@ -51,4 +51,14 @@ alias python='python3'
 
 export EDITOR=emacs
 
+##
+## Functions
+##
 
+## it2sp <profile>
+##
+## Activate profile <profile> in iTerm2.
+##
+function it2sp {
+    echo -e "\033]50;SetProfile=$1\a"
+}
