@@ -38,3 +38,15 @@ If you saved the generated private key in the default file (`$HOME/.ssh/id_rsa`)
 We don't want to assume that all repos on the client machine are using the same key and/or talking to the same github account, so we use `--local` to limit this configuration to repo scope. You can confirm the results with `git config --list --show-scope`.
 
 That's it - your local copy of `tk-dotfiles` (or, perhaps, your user account or whole machine) now has access to your github profile, and from there it can access any repo to which your github account has read/write privileges.
+
+## Installation
+
+Activate any or all of the config files in this repo by symlinking them from your home directory.
+
+**TODO**: Should we write a setup script for creating these links? This could include OS-based conditionals like the one below for `htop`.
+
+### HTOP
+
+On Linux, `.htoprc` can be activated in standard fashion - just link to it from `$HOME/.htoprc`.
+
+On MacOS, `htop` seems to ignore `$HOME/.htoprc`. Instead, link to `tk-dotfiles/.htoprc` from `$HOME/.config/htop/htoprc`.
