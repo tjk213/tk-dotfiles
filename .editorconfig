@@ -1,0 +1,51 @@
+####################################################################################
+##               ,:                                                         ,:    ##
+##             ,' |                                                       ,' |    ##
+##            /   :                                                      /   :    ##
+##         --'   /       :::::::::::   :::::::::::   :::    :::       --'   /     ##
+##         \/ />/           :+:            :+:       :+:   :+:        \/ />/      ##
+##         / /_\           +:+            +:+       +:+  +:+          / /_\       ##
+##      __/   /           +#+            +#+       +#++:++         __/   /        ##
+##      )'-. /           +#+            +#+       +#+  +#+         )'-. /         ##
+##      ./  :\          #+#        #+# #+#       #+#   #+#         ./  :\         ##
+##       /.' '         ###         #####        ###    ###          /.' '         ##
+##     '/'                                                        '/'             ##
+##     +                                                          +               ##
+##    '                                                          '                ##
+####################################################################################
+##            Copyright © 2022 Tyler J. Kenney. All rights reserved.              ##
+####################################################################################
+####################################################################################
+
+##
+## EditorConfig: https://EditorConfig.org
+##
+
+root = true # top-most EditorConfig file
+
+[*]
+end_of_line = lf # Unix-style newlines
+
+# C/C++
+[*.{cpp,c,h,hpp}]
+max_line_length = 120
+indent_style = space
+indent_size = 2
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Python files
+[*.py]
+max_line_length = 120
+charset = utf-8
+indent_style = space
+indent_size = 4
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Shell scripts
+[*.sh]
+max_line_length = 120
+charset = utf-8
+insert_final_newline = true
+trim_trailing_whitespace = true
