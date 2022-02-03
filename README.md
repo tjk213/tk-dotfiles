@@ -37,4 +37,4 @@ If you saved the generated private key in the default file (`$HOME/.ssh/id_rsa`)
 
 We don't want to assume that all repos on the client machine are using the same key and/or talking to the same github account, so we use `--local` to limit this configuration to repo scope. You can confirm the results with `git config --list --show-scope`.
 
-That's it - your local copy of `tk-dotfiles` (or, perhaps, your user account or whole machine) now has access to your github profile, and from there it can access any repo to which your github accout has read/write privileges.
+That's it - your local copy of `tk-dotfiles` (or, perhaps, your user account or whole machine) now has access to your github profile, and from there it can access any repo to which your github account has read/write privileges.
