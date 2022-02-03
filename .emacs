@@ -39,6 +39,11 @@
 (require 'use-package-ensure)
 (setq use-package-always-ensure t)
 
+(use-package editorconfig
+  :ensure t
+  :config
+  (editorconfig-mode 1))
+
 ;;
 ;; General config
 ;;
