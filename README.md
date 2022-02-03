@@ -47,9 +47,16 @@ That's it - your local copy of `tk-dotfiles` (or, perhaps, your user account or 
 
 ## Installation
 
-Activate any or all of the config files in this repo by symlinking them from your home directory.
+Most files in this repo can be activated by symlinking them from your home directory - the exceptions are noted below.
 
 **TODO**: Should we write a setup script for creating these links? This could include OS-based conditionals like the one below for `htop`.
+
+### .bashrc
+
+If you'd like, you can directly link `$HOME/.bashrc` to `tk-dotfiles/.bashrc`, but it's probably better to source from your home dir to `tk-dotfiles`:
+```
+% echo "source $(realpath .)/.bashrc" >> $HOME/.bashrc
+```
 
 ### HTOP
 
