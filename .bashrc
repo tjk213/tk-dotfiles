@@ -58,7 +58,9 @@ shopt -s histappend # When the shell exits, append to the history file instead o
 
 # After each command, append to the history file.
 # Use `history -c; history -r` to read all terminal history into a specific terminal.
-export PROMPT_COMMAND="${PROMPT_COMMAND};history -a"
+# ${foo:+bar} is parameter expansion which evaluates to bar if foo is non-null,
+# so ${PROMPT_COMMAND:+;} is adding a semicolon if and only if we need one.
+export PROMPT_COMMAND="${PROMPT_COMMAND}${PROMPT_COMMAND:+;}history -a"
 
 ##
 ## Functions
