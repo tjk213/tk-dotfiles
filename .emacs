@@ -46,6 +46,11 @@
 
 (use-package markdown-mode)
 
+(add-to-list 'load-path (concat (file-name-directory load-file-name) ".emacs.d/llvm-modes"))
+
+(load "tablegen-mode")
+(load "llvm-mode")
+
 ;;
 ;; Display config
 ;;
