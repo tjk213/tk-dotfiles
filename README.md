@@ -60,6 +60,4 @@ If you'd like, you can directly link `$HOME/.bashrc` to `tk-dotfiles/.bashrc`, b
 
 ### HTOP
 
-On Linux, `.htoprc` can be activated in standard fashion - just link to it from `$HOME/.htoprc`.
-
-On MacOS, `htop` seems to ignore `$HOME/.htoprc`. Instead, link to `tk-dotfiles/.htoprc` from `$HOME/.config/htop/htoprc`.
+`htop` reads its config from `$HOME/.config/htop/htoprc`. So this is the file that must be linked to `tk-dotfiles/.htoprc`.
