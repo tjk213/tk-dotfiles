@@ -59,7 +59,7 @@ shopt -s checkwinsize
 ## History
 ##
 
-export HISTSIZE=-1 # no limit
+export HISTSIZE=$((10*1000*1000)) # NB: Negatives don't work on MacOS
 export HISTCONTROL="ignorespace:ignoredups:erasedups"
 
 shopt -s cmdhist # attempt to save all lines of a multi-line command in the same entry
