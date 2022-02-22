@@ -46,7 +46,7 @@
 
 (use-package markdown-mode)
 
-(add-to-list 'load-path (concat (file-name-directory load-file-name) ".emacs.d/llvm-modes"))
+(add-to-list 'load-path (concat (file-name-directory (file-truename load-file-name)) ".emacs.d/llvm-modes"))
 
 (load "tablegen-mode")
 (load "llvm-mode")
