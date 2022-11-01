@@ -50,6 +50,7 @@
 
 (load "tablegen-mode")
 (load "llvm-mode")
+(load "mlir-mode")
 
 ;;
 ;; Display config
