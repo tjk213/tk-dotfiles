@@ -101,6 +101,14 @@ function switch-profile() {
     print-osc; printf "]50;SetProfile=$1"; print-st
 }
 
+## set-title <new-title>
+##
+## Set terminal title to <new-title> in iterm2.
+##
+function set-title() {
+    print-osc; printf "]0;$1"; print-st
+}
+
 ## it2sp <profile>
 ##
 ## Older alias for switch-profile.
