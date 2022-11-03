@@ -120,6 +120,10 @@ function print-st() {
 ##
 ## Activate profile <profile-name> in iterm2.
 ##
+## NB: The command code in use here (50) may be deprecated. 1337 seems to be the
+##     newer version. See https://iterm2.com/documentation-escape-codes.html for
+##     more details. For now, i'm leaving it as 50; if ain't broke, don't fix it.
+##
 function switch-profile() {
     print-osc; printf "]50;SetProfile=$1"; print-st
 }
