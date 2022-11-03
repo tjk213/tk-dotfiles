@@ -76,12 +76,37 @@ export PROMPT_COMMAND="${PROMPT_COMMAND}${PROMPT_COMMAND:+;}history -a"
 ## Functions
 ##
 
+## Print starting control sequence for an operating system command (OSC).
+##
+## If we're in a tmux session, then add an additional prefix to form the
+## passthrough sequence and get the command to the underlying terminal.
+## This also requires that tmux's allow-passthrough option (pane level)
+## is enabled (should be set in .tmux.conf).
+##
+function print-osc() {
+    if [[ -n "$TMUX" ]]; then printf "\033Ptmux;\033"; fi; printf "\033"
+}
+
+## Print ending control sequence for OS command.
+## See tmux notes on print-osc().
+function print-st() {
+    printf "\a"; if [[ -n "$TMUX" ]]; then printf "\033\\"; fi
+}
+
+## switch-profile <profile-name>
+##
+## Activate profile <profile-name> in iterm2.
+##
+function switch-profile() {
+    print-osc; printf "]50;SetProfile=$1"; print-st
+}
+
 ## it2sp <profile>
 ##
-## Activate profile <profile> in iTerm2.
+## Older alias for switch-profile.
 ##
 function it2sp {
-    echo -e "\033]50;SetProfile=$1\a"
+    switch-profile $1
 }
 
 ## bytes-to-gigabytes [column_number=1] [skip_first_N_lines=0]
