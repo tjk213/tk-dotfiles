@@ -58,9 +58,20 @@
 
 (setq column-number-mode t)
 
+;;; Uncomment below to install & default to solarized-light theme.
+
 ;;(use-package solarized-theme
 ;;  :config
 ;;  (load-theme 'solarized-light t))
+
+;;; Uncomment below to clear theme-based background color.
+;;; This sets up emacs to inherit background color from underlying terminal,
+;;; which is great if we want to use a them to control font colors but an iterm
+;;; profile to control the background. For now, we don't have any emacs theme
+;;; enable at all, so we leave this commented as well.
+
+;;(set-face-background 'default "undefined")
+
 
 (use-package beacon
   :config
