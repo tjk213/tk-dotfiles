@@ -23,7 +23,7 @@
 ##  gigabytes (er, to be precise, gibibytes (GiB)) with two decimal places
 ##  displayed.
 ##
-bytes-to-gigabytes()
+function bytes-to-gigabytes()
 {
     col="$1"
     skip_lines="$2"
@@ -39,8 +39,6 @@ bytes-to-gigabytes()
     awk "NR>${skip_lines} { \$${col}=sprintf(\"%.2fG\",\$${col}/1024/1024/1024);}{ print;}"
 }
 
-export -f bytes-to-gigabytes
-
 ## psmem [--skip-headers] [extra_ps_options]
 ##
 ## Display memory status of given processes in GiB.
@@ -53,8 +51,9 @@ export -f bytes-to-gigabytes
 ##   - comm:  Executable name (use `command` or `args` for executable + args)
 ##
 ## See `man ps` for process selection guide.
+## NB: the --headers and --no-headers switches used here are only available with GNU ps.
 ##
-psmem()
+function psmem()
 {
     if [[ $1 == "--skip-headers" ]]; then
 	skips=0
@@ -68,8 +67,6 @@ psmem()
     ps -o pid,user,vsize,rss,pmem,comm ${headers} "$@" | bytes-to-gigabytes 3 ${skips} | bytes-to-gigabytes 4 ${skips} | column -t
 }
 
-export -f psmem
-
 ## psmem-log [extra_ps_options]
 ##
 ## Repeatedly call `psmem` and append results to stdout.
@@ -80,12 +77,10 @@ export -f psmem
 ##
 ## TODO: Can we replace this with a CLI on psmem? Something like psmem --log=5m ?
 ##
-psmem-log()
+function psmem-log()
 {
     psmem "$@"
     while sleep 1; do
 	psmem --skip-headers "$@";
     done
 }
-
-export -f psmem-log
