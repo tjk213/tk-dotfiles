@@ -24,6 +24,10 @@
 ## This also requires that tmux's allow-passthrough option (pane level)
 ## is enabled (should be set in .tmux.conf).
 ##
+## NB: Extra notes on truecolor, tmux config, and mosh setup from Subie here:
+##
+##  https://docs.google.com/document/d/1nbCPseyLAFZjiWDheBtRBqAEk-VAFS3RHz84m7pZ2hc
+##
 function print-osc() {
     if [[ -n "$TMUX" ]]; then printf "\033Ptmux;\033"; fi; printf "\033"
 }
@@ -65,6 +69,7 @@ function it2sp {
 ## color-test
 ##
 ## Print horizontal color spectrum to screen.
+## Taken from: https://jdhao.github.io/2018/10/19/tmux_nvim_true_color/
 ##
 function color-test {
     awk 'BEGIN{
