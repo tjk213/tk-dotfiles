@@ -163,7 +163,7 @@ bytes-to-gigabytes()
 	skip_lines="0"
     fi
 
-    awk "NR>${skip_lines} { \$${col}=sprintf(\"%.2fG\",\$${col}/1024/1024);}{ print;}"
+    awk "NR>${skip_lines} { \$${col}=sprintf(\"%.2fG\",\$${col}/1024/1024/1024);}{ print;}"
 }
 
 export -f bytes-to-gigabytes
