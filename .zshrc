@@ -64,3 +64,5 @@ PROMPT="${CURRDIR}${BRANCH} ${DELIM} "
 
 source $HOME/apps/zsh-fsh/fast-syntax-highlighting.plugin.zsh
 
+# Run color-test from termctl.sh to kick off new shell.
+color-test
