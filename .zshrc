@@ -46,3 +46,21 @@ CURRDIR='%F{blue}%~%f'
 # Set final prompt
 PROMPT="${CURRDIR}${BRANCH} ${DELIM} "
 
+##
+## Enable zsh fast-syntax-highlighting
+##
+##  NB: The syntax highlighting in general here is great but the main feature I
+##   was looking for when I set this up is git-commit-message-length-highlighting.
+##   This appears to have been dropped after v1.5, and also defaulted to the wrong
+##   character threshold. As a result, I made my own fork to resolve these issues:
+##
+##     https://github.com/tjk213/zsh-fsh
+##
+##   The FSH readme suggests a few different zsh plugins that could potentially
+##   automate installation, but I'm using the manual process for now. This means
+##   the source command below will fail on a new machine if we haven't yet cloned
+##   the fork.
+##
+
+source $HOME/apps/zsh-fsh/fast-syntax-highlighting.plugin.zsh
+
