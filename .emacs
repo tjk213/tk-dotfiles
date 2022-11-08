@@ -51,6 +51,7 @@
 (load "tablegen-mode")
 (load "llvm-mode")
 (load "mlir-mode")
+(load "dockerfile-mode")
 
 ;;
 ;; Display config
