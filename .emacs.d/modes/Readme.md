@@ -15,3 +15,7 @@ There is no easy-to-use package manager for these extracurricular syntax modes t
 ### Docker
 
 `dockerfile-mode` is courtesy of [spotify](https://github.com/spotify/dockerfile-mode).
+
+### YAML
+
+`yaml-mode` is courtesy of [yoshiki](https://github.com/yoshiki/yaml-mode)

@@ -52,6 +52,7 @@
 (load "llvm-mode")
 (load "mlir-mode")
 (load "dockerfile-mode")
+(load "yaml-mode")
 
 ;;
 ;; Display config
