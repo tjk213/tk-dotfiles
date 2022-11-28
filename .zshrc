@@ -64,5 +64,14 @@ PROMPT="${CURRDIR}${BRANCH} ${DELIM} "
 
 source $HOME/apps/zsh-fsh/fast-syntax-highlighting.plugin.zsh
 
+##
+## Format time builtin.
+##
+## NB: The builtin can be disabled with `disable -r time`, which should cause
+## fallback to /usr/bin/time.
+##
+
+TIMEFMT=$'\nCPU Utilization: %P\n\nCPU Time (user): %U\nCPU Time  (sys): %S\n\nTotal Time: %E\n'
+
 # Run color-test from termctl.sh to kick off new shell.
 color-test
