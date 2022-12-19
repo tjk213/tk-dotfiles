@@ -40,8 +40,10 @@ zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:git:*' formats ' [%b]'
 BRANCH='%F{red}${vcs_info_msg_0_}%f'
 
-# Prefix prompt with current working directory, in blue.
-CURRDIR='%F{blue}%~%f'
+# Prefix prompt with basename of current working directory, in blue.
+# See `man zshmisc` EXPANSION OF PROMPT SEQUENCES section for details.
+# TODO: Should we get some underlines and/or bolds going??
+CURRDIR='%F{blue}%1~%f'
 
 # Set final prompt
 PROMPT="${CURRDIR}${BRANCH} ${DELIM} "
