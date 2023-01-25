@@ -57,14 +57,15 @@
 ;;
 ;; Display config
 ;;
+;; NB: Older versions of this file installed solarized-theme via use-package and
+;;     defaulted to solarized-light. Solarized-light is terrible but the package
+;;     has lots of other themes, including some sort of solarized/wombat hybrid
+;;     that was pretty good (still put comments in gray rather than dark red,
+;;     however). See git history for details on how to set this up if necessary.
+;;
 
-(setq column-number-mode t)
-
-;;; Uncomment below to install & default to solarized-light theme.
-
-;;(use-package solarized-theme
-;;  :config
-;;  (load-theme 'solarized-light t))
+(load-theme 'wombat t)      ;; Default theme = wombat
+(setq column-number-mode t) ;; Always display column numbers!
 
 ;;; Uncomment below to clear theme-based background color.
 ;;; This sets up emacs to inherit background color from underlying terminal,
