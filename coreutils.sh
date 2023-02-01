@@ -80,3 +80,11 @@ alias emacs='TERM=xterm-256color emacs'
 ##
 
 export EDITOR=emacs
+
+##
+## Directory Shortcuts (modular)
+##
+
+export M=$HOME/workspace/modular
+export I=$HOME/workspace/infra
+export R=$HOME/workspace/recommenders
