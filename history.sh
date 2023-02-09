@@ -30,6 +30,8 @@ if [[ -n "$BASH_VERSION" ]]; then
     # so ${PROMPT_COMMAND:+;} is adding a semicolon if and only if we need one.
     export PROMPT_COMMAND="${PROMPT_COMMAND}${PROMPT_COMMAND:+;}history -a"
 elif [[ -n "$ZSH_VERSION" ]]; then
+    export SAVEHIST=$HISTSIZE             # Only necesary on linux, unneccesary on macos
+    export HISTFILE="$HOME/.zsh_history"  # Only necesary on linux, unneccesary on macos
     setopt INC_APPEND_HISTORY # Immediately append to history after each command
     setopt HIST_FIND_NO_DUPS  # Ignore duplicates when searching history
 else
