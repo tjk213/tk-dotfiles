@@ -18,6 +18,16 @@
 ####################################################################################
 
 ##
+## PATH
+##
+## Some of these make use of GNU coreutils - see setup_macos.sh
+##
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    PATH=/opt/homebrew/opt/util-linux/bin:$PATH
+fi
+
+##
 ## Fundamental aliases
 ##
 ## Some of these make use of GNU coreutils - see setup_macos.sh

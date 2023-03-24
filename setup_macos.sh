@@ -17,5 +17,5 @@
 ####################################################################################
 ####################################################################################
 
-# Install GNU utils like `ls` as `gls`
-brew install coreutils
+brew install coreutils     # Install GNU utils like `ls` as `gls`
+brew install util-linux    # Install GNU column & more
