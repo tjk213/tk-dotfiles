@@ -25,8 +25,12 @@
         stasharoo = stash
         push-current-branch = push origin HEAD
 
+## NB: git now has an `includeIf` function which we could potentially leverage to
+## control git emails via repo location (e.g. ~/workspace --> tyler@modular.com).
+## This would, I think, give us everything we need to eliminate the modular branch
+## and get everything to co-exist in master.
 [user]
-	email = tjk213@gmail.com
+	email = tyler@modular.com
 	name = Tyler J. Kenney
 [core]
 	excludesFile = ~/.gitignore
