@@ -33,7 +33,8 @@ elif [[ -n "$ZSH_VERSION" ]]; then
     export SAVEHIST=$HISTSIZE             # Only necesary on linux, unneccesary on macos
     export HISTFILE="$HOME/.zsh_history"  # Only necesary on linux, unneccesary on macos
     setopt INC_APPEND_HISTORY # Immediately append to history after each command
-    setopt HIST_FIND_NO_DUPS  # Ignore duplicates when searching history
+    #setopt HIST_FIND_NO_DUPS  # Ignore duplicates when searching history
+    setopt HIST_IGNORE_ALL_DUPS # Prevent duplicates from going into histfile entirely
 else
     echo "history.sh: Unexpected shell!"
 fi
