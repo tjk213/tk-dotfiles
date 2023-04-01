@@ -23,6 +23,7 @@
         st = status -uno
         ci = commit
         stasharoo = stash
+        push-current-branch = push origin HEAD
 
 [user]
 	email = tjk213@gmail.com
