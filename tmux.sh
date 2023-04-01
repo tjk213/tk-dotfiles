@@ -17,6 +17,16 @@
 ####################################################################################
 ####################################################################################
 
+# Return the height we want for our htop pane.
+# This is a function of the # of cores in the system, as well as the htop config.
+function htop-meter-height()
+{
+    local num_header_rows=5 # Assuming 4 rows of system info (plus blank).
+    local num_cpu_rows=$(($(nproc)/4)) # Assuming 4 columns of cpu meters.
+    local num_trailing_rows=2
+    echo $(($num_header_rows+$num_cpu_rows+$num_trailing_rows))
+}
+
 # Attach to session "default" if it exists.
 # Otherwise, create it and attach.
 function tmux-default()
@@ -33,7 +43,7 @@ function tmux-default()
 	# Start htop pane on bottom
 	tmux split-window -v
 	tmux send-keys 'htop' C-m
-	tmux resize-pane -y 11 # Assuming 4 rows of CPU meters, shows 0 processes
+	tmux resize-pane -y $(htop-meter-height)
 	tmux last-pane
     fi
 
