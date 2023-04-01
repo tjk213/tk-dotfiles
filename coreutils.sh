@@ -17,6 +17,8 @@
 ####################################################################################
 ####################################################################################
 
+TOP=$(realpath $(dirname -- "${BASH_SOURCE[0]}"))
+
 ##
 ## PATH
 ##
@@ -51,6 +53,8 @@ alias e='emacs'
 alias python='python3'
 alias grep='grep --color=auto'
 alias gs='git status'
+
+alias backup="$TOP/backup.py"
 
 ## Overide TERM in emacs environment
 ##
