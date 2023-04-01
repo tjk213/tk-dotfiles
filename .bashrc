@@ -25,6 +25,8 @@ source ${TOP}/ps.sh
 source ${TOP}/termctl.sh
 source ${TOP}/tmux.sh
 
+source ${TOP}/modular.sh
+
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
