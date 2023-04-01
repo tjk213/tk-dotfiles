@@ -80,3 +80,13 @@ alias emacs='TERM=xterm-256color emacs'
 ##
 
 export EDITOR=emacs
+
+##
+## Python
+##
+
+if [[ -z $DEFAULT_PYTHON_VERSION ]] ; then
+    export DEFAULT_PYTHON_VERSION=3.10
+fi
+
+source $HOME/venvs/py-${DEFAULT_PYTHON_VERSION}/bin/activate
