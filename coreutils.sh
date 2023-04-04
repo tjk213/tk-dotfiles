@@ -17,7 +17,13 @@
 ####################################################################################
 ####################################################################################
 
-TOP=$(realpath $(dirname -- "${BASH_SOURCE[0]}"))
+if [[ -n "$BASH_VERSION" ]] ; then
+    THIS_DIR=$(realpath $(dirname -- "${BASH_SOURCE[0]}"))
+elif [[ -n "$ZSH_VERSION" ]] ; then
+    THIS_DIR="${0:A:h}"
+else
+    echo 1>&2 "coreutils.sh: Unexpected shell!"
+fi
 
 ##
 ## PATH
@@ -54,7 +60,7 @@ alias python='python3'
 alias grep='grep --color=auto'
 alias gs='git status'
 
-alias backup="$TOP/backup.py"
+alias backup="$THIS_DIR/backup.py"
 
 ## Overide TERM in emacs environment
 ##
@@ -102,3 +108,9 @@ fi
 if [[ -z "$VIRTUAL_ENV" ]] ; then
     source $HOME/venvs/py-${DEFAULT_PYTHON_VERSION}/bin/activate
 fi
+
+##
+## Cleanup
+##
+
+unset THIS_DIR
