@@ -30,6 +30,7 @@ export R=$HOME/workspace/recommenders
 ##
 
 DISABLE_CHDIR=1 source $M/utils/start-modular.sh
+unset -f model
 
 ##
 ## Tracefiles
