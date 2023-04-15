@@ -58,9 +58,12 @@ alias ll='ls -lhBv --group-directories-first --color=auto'
 alias e='emacs'
 alias python='python3'
 alias grep='grep --color=auto'
-alias gs='git status'
-
 alias backup="$THIS_DIR/backup.py"
+
+alias gs='git status'
+alias is-git-repo='git rev-parse --is-inside-work-tree &>/dev/null'
+alias get-git-branch='is-git-repo && git branch --show-current'
+
 
 ## Overide TERM in emacs environment
 ##
@@ -90,6 +93,21 @@ alias emacs='TERM=xterm-256color emacs'
 ##
 
 export EDITOR=emacs
+
+##
+## Prompt Commands
+##
+
+function set-GB() {
+    export GB=$(get-git-branch)
+}
+
+if [[ -n "$BASH_VERSION" ]]; then
+    SEMICOLON_IF_NEEDED="${PROMPT_COMMAND:+;}"
+    export PROMPT_COMMAND="${PROMPT_COMMAND}${SEMICOLON_IF_NEEDED}set-GB"
+elif [[ -n "$ZSH_VERSION" ]]; then
+    precmd_functions+=(set-GB)
+fi
 
 ##
 ## Python
