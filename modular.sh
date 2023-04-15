@@ -61,3 +61,7 @@ function AMD()  { echo $(get-mdcm-vm-ip amd-22.04); }
 function GRAV() { echo $(get-mdcm-vm-ip grav-22.04); }
 function INTEL() { echo $(get-mdcm-vm-ip x86-22.04); }
 function INTEL-12XL() { echo $(get-mdcm-vm-ip x86-c5-12xlarge); }
+
+if [[ -f "modular-local.sh" ]] ; then
+    source modular-local.sh
+fi
