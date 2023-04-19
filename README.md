@@ -51,6 +51,8 @@ Most files in this repo can be activated by symlinking them from your home direc
 
 **TODO**: Should we write a setup script for creating these links? This could include OS-based conditionals like the one below for `htop`.
 
+> _**NB**: For z-shell, we could point `ZDOTDIR` to this repo as an alternative installation method. Is there something similar for bash? See section 2.2 of the [zshell user's guide](https://zsh.sourceforge.io/Guide/zshguide02.html). But where do we set `ZDOTDIR`? This might create a chicken-and-the-egg problem._ 🤔
+
 ### .bashrc
 
 If you'd like, you can directly link `$HOME/.bashrc` to `tk-dotfiles/.bashrc`, but it's probably better to source from your home dir to `tk-dotfiles`:
