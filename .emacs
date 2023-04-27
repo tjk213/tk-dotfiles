@@ -93,3 +93,9 @@
 
 (add-hook 'c-mode-common-hook 'c-format-hook)
 
+;;
+;; MOJO
+;;
+
+(add-to-list 'auto-mode-alist '("\\.mojo\\'" . python-mode))
+(add-to-list 'auto-mode-alist '("\\.🔥\\'" . python-mode))
