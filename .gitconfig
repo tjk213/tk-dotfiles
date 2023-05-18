@@ -28,6 +28,8 @@
 [user]
 	email = tjk213@gmail.com
 	name = Tyler J. Kenney
+[core]
+	excludesFile = ~/.gitignore
 [pull]
 	ff = only
 
