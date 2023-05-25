@@ -65,6 +65,9 @@ export -TU LD_LIBRARY_PATH ld_library_path # link array to var & unique-ify
 
 autoload -Uz compinit; compinit
 
+# Disable autocomplete cycling on ambiguous complete; just list like bash
+setopt NO_AUTO_MENU
+
 # Tab complete regardless of trailing whitespace (only prefix matters), like bash.
 bindkey '\CI' expand-or-complete-prefix
 
