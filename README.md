@@ -62,4 +62,7 @@ If you'd like, you can directly link `$HOME/.bashrc` to `tk-dotfiles/.bashrc`, b
 
 ### HTOP
 
-`htop` reads its config from `$HOME/.config/htop/htoprc`. So this is the file that must be linked to `tk-dotfiles/.htoprc`.
+`htop` reads its config from `$HOME/.config/htop/htoprc`. So this is the file that must be linked to the desired config:
+
+  - `htop-cpu2.cfg`: 2 columns of CPU meters
+  - `htop-cpu4.cfg`: 4 columns of CPU meters
