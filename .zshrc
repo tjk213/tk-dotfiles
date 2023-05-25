@@ -50,6 +50,16 @@ CURRDIR='%F{blue}%1~%f'
 PROMPT="${CURRDIR}${BRANCH} ${DELIM} "
 
 ##
+## Standard zshell options
+##
+
+setopt NO_BEEP      # Disable beeping
+setopt CD_ABLE_VARS # Transform cd x -> cd $x if x is not a dir & is a parameter.
+
+typeset -U PATH path # Unique-ify path
+export -TU LD_LIBRARY_PATH ld_library_path # link array to var & unique-ify
+
+##
 ## Enable zsh fast-syntax-highlighting
 ##
 ##  NB: The syntax highlighting in general here is great but the main feature I
