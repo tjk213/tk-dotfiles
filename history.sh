@@ -35,6 +35,8 @@ elif [[ -n "$ZSH_VERSION" ]]; then
     setopt INC_APPEND_HISTORY # Immediately append to history after each command
     #setopt HIST_FIND_NO_DUPS  # Ignore duplicates when searching history
     setopt HIST_IGNORE_ALL_DUPS # Prevent duplicates from going into histfile entirely
+    setopt HIST_REDUCE_BLANKS   # Trim whitespace
+    setopt HIST_IGNORE_SPACE    # Commands starting with a space are secret like bash
 else
     echo "history.sh: Unexpected shell!"
 fi
