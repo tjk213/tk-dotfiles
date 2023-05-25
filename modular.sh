@@ -33,6 +33,12 @@ export F=$HOME/workspace/ferrari-models
 DISABLE_CHDIR=1 source $M/utils/start-modular.sh
 unset -f model
 
+INFRA_STARTUP_FILE=$I/start-infra-dev.sh
+
+if [[ -f "$INFRA_STARTUP_FILE" ]]; then
+    cd $I && source $INFRA_STARTUP_FILE && cd $OLDPWD
+fi
+
 ##
 ## Tracefiles
 ##
