@@ -24,6 +24,7 @@
 export M=$HOME/workspace/modular
 export I=$HOME/workspace/infra
 export R=$HOME/workspace/recommenders
+export F=$HOME/workspace/ferrari-models
 
 ##
 ## Python
