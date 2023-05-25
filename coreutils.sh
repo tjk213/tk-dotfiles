@@ -95,6 +95,13 @@ alias emacs='TERM=xterm-256color emacs'
 export EDITOR=emacs
 
 ##
+## Directory Shortcuts
+##
+
+export W=$HOME/workspace
+export TKD=$W/tk-dotfiles
+
+##
 ## Prompt Commands
 ##
 
