@@ -59,8 +59,21 @@ setopt NO_BEEP      # Disable beeping
 typeset -U PATH path # Unique-ify path
 export -TU LD_LIBRARY_PATH ld_library_path # link array to var & unique-ify
 
+##
+## Tab completion
+##
+
+autoload -Uz compinit; compinit
+
 # Tab complete regardless of trailing whitespace (only prefix matters), like bash.
 bindkey '\CI' expand-or-complete-prefix
+
+# Tab complete on long-args with --foobar=/path/to/my/file
+function tab-complete-equals() {
+    compset -P '*='
+    _default -r '\-\n\t /=' "$@"
+}
+compdef tab-complete-equals -first-
 
 ##
 ## Enable zsh fast-syntax-highlighting
