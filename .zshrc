@@ -59,6 +59,9 @@ setopt NO_BEEP      # Disable beeping
 typeset -U PATH path # Unique-ify path
 export -TU LD_LIBRARY_PATH ld_library_path # link array to var & unique-ify
 
+# Tab complete regardless of trailing whitespace (only prefix matters), like bash.
+bindkey '\CI' expand-or-complete-prefix
+
 ##
 ## Enable zsh fast-syntax-highlighting
 ##
