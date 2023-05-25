@@ -54,7 +54,7 @@ PROMPT="${CURRDIR}${BRANCH} ${DELIM} "
 ##
 
 setopt NO_BEEP      # Disable beeping
-setopt CD_ABLE_VARS # Transform cd x -> cd $x if x is not a dir & is a parameter.
+#setopt CD_ABLE_VARS # Transform cd x -> cd $x if x is not a dir & is a parameter.
 
 typeset -U PATH path # Unique-ify path
 export -TU LD_LIBRARY_PATH ld_library_path # link array to var & unique-ify
