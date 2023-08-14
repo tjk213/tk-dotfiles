@@ -21,8 +21,8 @@
 # This is a function of the # of cores in the system, as well as the htop config.
 function htop-meter-height()
 {
-    local num_header_rows=5 # Assuming 4 rows of system info (plus blank).
-    local num_cpu_rows=$(($(nproc)/4)) # Assuming 4 columns of cpu meters.
+    local num_header_rows=4 # Assuming 3 rows of system info (plus blank).
+    local num_cpu_rows=$(($(nproc)/2)) # Assuming 4 columns of cpu meters.
     local num_trailing_rows=2
     echo $(($num_header_rows+$num_cpu_rows+$num_trailing_rows))
 }
