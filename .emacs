@@ -53,6 +53,7 @@
 (load "mlir-mode")
 (load "dockerfile-mode")
 (load "yaml-mode")
+(load "graphviz-dot-mode")
 
 ;;
 ;; Display config
