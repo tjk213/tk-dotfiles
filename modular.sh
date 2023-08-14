@@ -69,6 +69,35 @@ function GRAV() { echo $(get-mdcm-vm-ip grav-22.04); }
 function INTEL() { echo $(get-mdcm-vm-ip x86-22.04); }
 function INTEL-12XL() { echo $(get-mdcm-vm-ip x86-c5-12xlarge); }
 
+##
+## MLIR Pipelines
+##
+
+if [[ -f "modular-pipelines.sh" ]] ; then
+    source modular-pipelines.sh
+fi
+
+function tf-to-mgp()
+{
+    filepath=$1
+    filename=$(basename $filepath)
+    parts=(${(s/./)filename})
+    root=${parts[1]}
+
+    faux-opt --allow-unregistered-dialect --dump-op-graph $filepath 1>/dev/null 2>$root.tf.dot
+    tf-opt -p $tf_to_mo $filepath > $root.mo.mlir
+    faux-opt --allow-unregistered-dialect --dump-op-graph $root.mo.mlir 1>/dev/null 2>$root.mo.dot
+    tf-opt -p $mo_shape_inference $root.mo.mlir > $root.mosi.mlir
+    faux-opt --allow-unregistered-dialect --dump-op-graph $root.mosi.mlir 1>/dev/null 2>$root.mosi.dot
+    tf-opt -p $mo_to_mogg $root.mosi.mlir > $root.mogg.mlir
+    faux-opt --allow-unregistered-dialect --dump-op-graph $root.mogg.mlir 1>/dev/null 2>$root.mogg.dot
+    tf-opt -p $mo_fusion $root.mogg.mlir > $root.mofu.mlir
+    faux-opt --allow-unregistered-dialect --dump-op-graph $root.mofu.mlir 1>/dev/null 2>$root.mofu.dot
+    tf-opt --allow-unregistered-dialect -p $mogg_to_mgp $root.mofu.mlir > $root.mgp.mlir
+    faux-opt --allow-unregistered-dialect --dump-op-graph $root.mgp.mlir 1>/dev/null 2>$root.mgp.dot
+}
+
+
 if [[ -f "modular-local.sh" ]] ; then
     source modular-local.sh
 fi
