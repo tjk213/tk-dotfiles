@@ -72,3 +72,12 @@ function INTEL-12XL() { echo $(get-mdcm-vm-ip x86-c5-12xlarge); }
 if [[ -f "modular-local.sh" ]] ; then
     source modular-local.sh
 fi
+
+##
+## LOC Reports
+##
+
+export CLOC_MOJO='--force-lang=mojo,mojo'
+export CLOC_MLIR='--force-lang="LLVM IR,mlir"'
+export CLOC_LITCFG='--force-lang=Python,in' # lit.cfg.py.in --> Python
+alias cloc-modular="cloc ${CLOC_MOJO} ${CLOC_MLIR} ${CLOC_LITCFG}"
