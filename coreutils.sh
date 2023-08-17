@@ -33,6 +33,20 @@ fi
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
     PATH=/opt/homebrew/opt/util-linux/bin:$PATH
+
+    #
+    # Add conda packages
+    #
+    # This was added only for jupyter-lab, which is used for dynamic graphviz
+    # rendering. All's that really matters here is that when starting the
+    # jupyter server, its the conda-based jupyter-lab binary that gets run.
+    # Clearly, there are other ways to do this - this is a big hammer. But for
+    # now we just add everything in anaconda onto our PATH.
+    #
+    # NB: For the graphviz plugin, see:
+    #    https://github.com/deathbeds/jupyterlab_graphviz
+    #
+    PATH=/opt/homebrew/anaconda3/bin:$PATH
 fi
 
 ##
