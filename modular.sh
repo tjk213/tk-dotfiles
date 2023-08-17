@@ -77,6 +77,10 @@ if [[ -f  "${TOP}/modular-pipelines.sh" ]] ; then
     source ${TOP}/modular-pipelines.sh
 fi
 
+function dump-op-graph() {
+    faux-opt --dump-op-graph --allow-unregistered-dialect $1 1>/dev/null
+}
+
 function tf-to-mgp()
 {
     filepath=$1
@@ -84,17 +88,23 @@ function tf-to-mgp()
     parts=(${(s/./)filename})
     root=${parts[1]}
 
-    faux-opt --allow-unregistered-dialect --dump-op-graph $filepath 1>/dev/null 2>$root.tf.dot
+    dump-op-graph $filepath 2>$root.tf.dot
+    echo "tf-to-mgp: ${root}.tf.mlir"
     tf-opt -p $tf_to_mo $filepath > $root.mo.mlir
-    faux-opt --allow-unregistered-dialect --dump-op-graph $root.mo.mlir 1>/dev/null 2>$root.mo.dot
+    dump-op-graph $root.mo.mlir 2>$root.mo.dot
+    echo "tf-to-mgp: ${root}.mo.mlir"
     tf-opt -p $shape_inference $root.mo.mlir > $root.mosi.mlir
-    faux-opt --allow-unregistered-dialect --dump-op-graph $root.mosi.mlir 1>/dev/null 2>$root.mosi.dot
+    dump-op-graph $root.mosi.mlir 2>$root.mosi.dot
+    echo "tf-to-mgp: ${root}.mosi.mlir"
     tf-opt -p $mo_to_mogg $root.mosi.mlir > $root.mogg.mlir
-    faux-opt --allow-unregistered-dialect --dump-op-graph $root.mogg.mlir 1>/dev/null 2>$root.mogg.dot
+    dump-op-graph $root.mogg.mlir 2>$root.mogg.dot
+    echo "tf-to-mgp: ${root}.mogg.mlir"
     tf-opt -p $mo_fusion $root.mogg.mlir > $root.mofu.mlir
-    faux-opt --allow-unregistered-dialect --dump-op-graph $root.mofu.mlir 1>/dev/null 2>$root.mofu.dot
+    dump-op-graph $root.mofu.mlir 2>$root.mofu.dot
+    echo "tf-to-mgp: ${root}.mofu.mlir"
     tf-opt --allow-unregistered-dialect -p $mogg_to_mgp $root.mofu.mlir > $root.mgp.mlir
-    faux-opt --allow-unregistered-dialect --dump-op-graph $root.mgp.mlir 1>/dev/null 2>$root.mgp.dot
+    dump-op-graph $root.mgp.mlir 2>$root.mgp.dot
+    echo "tf-to-mgp: ${root}.mgp.mlir"
 }
 
 
