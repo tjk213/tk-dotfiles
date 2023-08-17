@@ -73,8 +73,8 @@ function INTEL-12XL() { echo $(get-mdcm-vm-ip x86-c5-12xlarge); }
 ## MLIR Pipelines
 ##
 
-if [[ -f "modular-pipelines.sh" ]] ; then
-    source modular-pipelines.sh
+if [[ -f  "${TOP}/modular-pipelines.sh" ]] ; then
+    source ${TOP}/modular-pipelines.sh
 fi
 
 function tf-to-mgp()
@@ -98,8 +98,8 @@ function tf-to-mgp()
 }
 
 
-if [[ -f "modular-local.sh" ]] ; then
-    source modular-local.sh
+if [[ -f  "${TOP}/modular-local.sh" ]] ; then
+    source ${TOP}/modular-local.sh
 fi
 
 ##
