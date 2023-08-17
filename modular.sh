@@ -87,7 +87,7 @@ function tf-to-mgp()
     faux-opt --allow-unregistered-dialect --dump-op-graph $filepath 1>/dev/null 2>$root.tf.dot
     tf-opt -p $tf_to_mo $filepath > $root.mo.mlir
     faux-opt --allow-unregistered-dialect --dump-op-graph $root.mo.mlir 1>/dev/null 2>$root.mo.dot
-    tf-opt -p $mo_shape_inference $root.mo.mlir > $root.mosi.mlir
+    tf-opt -p $shape_inference $root.mo.mlir > $root.mosi.mlir
     faux-opt --allow-unregistered-dialect --dump-op-graph $root.mosi.mlir 1>/dev/null 2>$root.mosi.dot
     tf-opt -p $mo_to_mogg $root.mosi.mlir > $root.mogg.mlir
     faux-opt --allow-unregistered-dialect --dump-op-graph $root.mogg.mlir 1>/dev/null 2>$root.mogg.dot
