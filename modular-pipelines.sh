@@ -24,9 +24,17 @@
 
 ## Sub-Pipeline: tf_to_mo
 export tf_to_mo="builtin.module(
-tf-to-mo{prune-assert-ops=true use-mo-ops=true},
+tf-to-mo{ prune-assert-ops=true use-mo-ops=true},
+name-input-dims{},
 cse,
-canonicalize{  max-iterations=10 max-num-rewrites=-1 region-simplify=true test-convergence=false top-down=true}
+canonicalize{  max-iterations=10 max-num-rewrites=-1 region-simplify=true test-convergence=false top-down=true},
+mo.graph(lower-qdq-operators-to-mo{lower-computational-ops=true}),
+mo.graph(fixup-moq-operator-dtypes),
+mo.graph(simplify-qdq-patterns),
+mo.graph(legalize-moq-operators-to-mo),
+canonicalize{  max-iterations=10 max-num-rewrites=-1 region-simplify=true test-convergence=false top-down=true},
+cse,
+constant-fold{iterations=2}
 )"
 
 
@@ -45,24 +53,30 @@ cse,
 canonicalize{  max-iterations=10 max-num-rewrites=-1 region-simplify=true test-convergence=false top-down=true},
 mo.graph(symbolic-optimize),
 mo.graph(propagate-shapes),
-mo.graph(add-fallback-shape-funcs),
+mo.graph(add-fallback-shape-funcs{}),
+canonicalize{  max-iterations=10 max-num-rewrites=-1 region-simplify=true test-convergence=false top-down=true},
+cse,
 mo.graph(symbolic-optimize),
 canonicalize{  max-iterations=10 max-num-rewrites=-1 region-simplify=true test-convergence=false top-down=true},
-cse
+cse,
+constant-fold{iterations=2},
+mo.graph(add-devices{default-device-label= enable-extra-devices=false enable-fake-cuda-device=false}),
+mo.graph(hacky-pattern-fusion),
+mo.graph(assign-devices{small-tensor-limit=1024})
 )"
 
 
 ## Sub-Pipeline: mo_to_mogg
 export mo_to_mogg="builtin.module(
-mo.graph(deparameterize-mo-ops),
 mo.graph(infer-layouts),
 mo.graph(mo-pattern-fusion),
 canonicalize{  max-iterations=10 max-num-rewrites=-1 region-simplify=true test-convergence=false top-down=true},
 cse,
 canonicalize{  max-iterations=10 max-num-rewrites=-1 region-simplify=true test-convergence=false top-down=true},
 cse,
+constant-fold{iterations=2},
 mo.graph(hoist-param-exprs),
-mo-to-mogg{use-jit=true},
+mo-to-mogg{},
 canonicalize{  max-iterations=10 max-num-rewrites=-1 region-simplify=true test-convergence=false top-down=true},
 cse
 )"
@@ -80,7 +94,7 @@ mo.graph(fuse-in-out-lambdas),
 cse,
 mo.graph(mark-trivial-kernels),
 mo.graph(inline-lambdas),
-mo.graph(soft-fuse),
+mo.graph(soft-fuse{non-host-kernel-limit=3 small-tensor-limit=1024}),
 mo.graph(add-explicit-chain-ready),
 mo.graph(fuse-consts),
 canonicalize{  max-iterations=10 max-num-rewrites=-1 region-simplify=true test-convergence=false top-down=true},
@@ -90,15 +104,18 @@ cse
 
 ## Sub-Pipeline: mogg_to_mgp
 export mogg_to_mgp="builtin.module(
-jit-compile-kernels{create-mogg-reproducers=false dump-stub=false min-cpu-alignment=16 save-temp-prefix= use-search=false},
-mo-to-primitives{compiled-framework-label=tf include-host-target-info=true min-cpu-alignment=16},
+jit-compile-kernels{create-mogg-reproducers=false dump-stub=false  min-cpu-alignment=16 save-temp-prefix= use-search=false},
+mo-to-primitives{compiled-framework-label=mof min-cpu-alignment=16},
 cse,
 remove-redundant-tensor-extracts,
 mgp.model(simplify-chains),
 mgp.model(concat-in-place),
+mgp.model(defer-tensor-create-exec),
 mgp.model(defer-allocs),
 mgp.model(exec-invariant-code-motion),
+mgp.model(verify-model-arguments),
 mgp.model(strip-buffer-attributes),
 canonicalize{  max-iterations=10 max-num-rewrites=-1 region-simplify=true test-convergence=false top-down=true},
+mgp.model(simplify-chains),
 cse
 )"
