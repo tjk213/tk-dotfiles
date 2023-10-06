@@ -26,7 +26,10 @@
 export tf_to_mo="builtin.module(
 tf-to-mo{prune-assert-ops=true use-mo-ops=true},
 cse,
-canonicalize{  max-iterations=10 max-num-rewrites=-1 region-simplify=true test-convergence=false top-down=true}
+canonicalize{  max-iterations=10 max-num-rewrites=-1 region-simplify=true test-convergence=false top-down=true},
+mo.graph(legalize-moq-ops-to-mo),
+canonicalize{  max-iterations=10 max-num-rewrites=-1 region-simplify=true test-convergence=false top-down=true},
+cse
 )"
 
 
@@ -54,7 +57,6 @@ cse
 
 ## Sub-Pipeline: mo_to_mogg
 export mo_to_mogg="builtin.module(
-mo.graph(deparameterize-mo-ops),
 mo.graph(infer-layouts),
 mo.graph(mo-pattern-fusion),
 canonicalize{  max-iterations=10 max-num-rewrites=-1 region-simplify=true test-convergence=false top-down=true},
@@ -62,7 +64,7 @@ cse,
 canonicalize{  max-iterations=10 max-num-rewrites=-1 region-simplify=true test-convergence=false top-down=true},
 cse,
 mo.graph(hoist-param-exprs),
-mo-to-mogg{use-jit=true},
+mo-to-mogg{extra-lib-paths=},
 canonicalize{  max-iterations=10 max-num-rewrites=-1 region-simplify=true test-convergence=false top-down=true},
 cse
 )"
@@ -90,8 +92,9 @@ cse
 
 ## Sub-Pipeline: mogg_to_mgp
 export mogg_to_mgp="builtin.module(
-jit-compile-kernels{create-mogg-reproducers=false dump-stub=false min-cpu-alignment=16 save-temp-prefix= use-search=false},
-mo-to-primitives{compiled-framework-label=tf include-host-target-info=true min-cpu-alignment=16},
+jit-compile-kernels{create-mogg-reproducers=false dump-stub=false extra-lib-paths= min-cpu-alignment=16 save-temp-prefix= use-search=false},
+mo-to-primitives{compiled-framework-label=tf min-cpu-alignment=16},
+mgp.model(predicate-asserts-deps),
 cse,
 remove-redundant-tensor-extracts,
 mgp.model(simplify-chains),
@@ -100,5 +103,6 @@ mgp.model(defer-allocs),
 mgp.model(exec-invariant-code-motion),
 mgp.model(strip-buffer-attributes),
 canonicalize{  max-iterations=10 max-num-rewrites=-1 region-simplify=true test-convergence=false top-down=true},
+mgp.model(simplify-chains),
 cse
 )"
