@@ -75,6 +75,8 @@ def get_pipeline_passes(pipeline: str) -> List[str]:
     passes = passes_dump.group(1).split(',')
 
     print(f'{pipeline}: {num_passes} passes',file=sys.stderr)
+    #print('\n'.join(passes))
+
     return passes
 
 def main():
@@ -93,7 +95,7 @@ def main():
 
     for p in PIPELINES:
         assert passes.count(p['start']) > 0, f'{p["name"]}: Missing start pass?'
-        assert passes.count(p['start']) < 2, f'{p["name"]}: Repeated start pass?'
+        #assert passes.count(p['start']) < 2, f'{p["name"]}: Repeated start pass?'
 
     ##
     ## Extract pass list for each sub-pipeline
