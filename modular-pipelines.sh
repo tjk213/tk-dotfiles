@@ -26,7 +26,8 @@
 export tf_to_mo="builtin.module(
 tf-to-mo{prune-assert-ops=true use-mo-ops=true},
 cse,
-canonicalize{  max-iterations=10 max-num-rewrites=-1 region-simplify=true test-convergence=false top-down=true}
+canonicalize{  max-iterations=10 max-num-rewrites=-1 region-simplify=true test-convergence=false top-down=true},
+constant-fold{iterations=2}
 )"
 
 
@@ -52,9 +53,11 @@ mo.graph(symbolic-optimize),
 canonicalize{  max-iterations=10 max-num-rewrites=-1 region-simplify=true test-convergence=false top-down=true},
 cse,
 mo.graph(lower-qdq-operators-to-mo{fixup-dtypes=true lower-computational-ops=true}),
-mo.graph(legalize-moq-ops-to-mo),
+mo.graph(simplify-qdq-patterns),
+mo.graph(legalize-moq-operators-to-mo),
 canonicalize{  max-iterations=10 max-num-rewrites=-1 region-simplify=true test-convergence=false top-down=true},
 cse,
+constant-fold{iterations=2},
 resolve-unknown-parameters,
 materialize-shape-funcs,
 canonicalize{  max-iterations=10 max-num-rewrites=-1 region-simplify=true test-convergence=false top-down=true},
@@ -74,6 +77,7 @@ cse,
 mo.graph(symbolic-optimize),
 canonicalize{  max-iterations=10 max-num-rewrites=-1 region-simplify=true test-convergence=false top-down=true},
 cse,
+constant-fold{iterations=2},
 mo.graph(add-devices{enable-extra-devices=false}),
 mo.graph(assign-devices)
 )"
@@ -87,6 +91,7 @@ canonicalize{  max-iterations=10 max-num-rewrites=-1 region-simplify=true test-c
 cse,
 canonicalize{  max-iterations=10 max-num-rewrites=-1 region-simplify=true test-convergence=false top-down=true},
 cse,
+constant-fold{iterations=2},
 mo.graph(hoist-param-exprs),
 mo-to-mogg{extra-lib-paths=},
 canonicalize{  max-iterations=10 max-num-rewrites=-1 region-simplify=true test-convergence=false top-down=true},
