@@ -22,7 +22,18 @@
 function htop-pane-height()
 {
     local num_header_rows=4 # Assuming 3 rows of system info (plus blank).
-    local num_cpu_rows=$(($(nproc)/2)) # Assuming 4 columns of cpu meters.
+    local num_cpus=$(nproc)
+
+    if [[ $num_cpus -lt 16 ]]; then
+	num_cpu_cols=2
+    elif [[ $num_cpus -lt 64 ]]; then
+	num_cpu_cols=4
+    else
+	num_cpu_cols=8
+    fi
+
+    # FIXME: This will break if cols doesn't divide num_cpus evenly
+    local num_cpu_rows=$(($num_cpus/$num_cpu_cols))
     local num_trailing_rows=2
     echo $(($num_header_rows+$num_cpu_rows+$num_trailing_rows))
 }
