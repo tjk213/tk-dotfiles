@@ -95,8 +95,8 @@
 (add-hook 'c-mode-common-hook 'c-format-hook)
 
 ;;
-;; MOJO
+;; Modular
 ;;
 
-(add-to-list 'auto-mode-alist '("\\.mojo\\'" . python-mode))
-(add-to-list 'auto-mode-alist '("\\.🔥\\'" . python-mode))
+(let ((file (concat (getenv "MODULAR_PATH") "/utils/emacs/modular.el")))
+  (when (file-exists-p file) (load-file file)))
