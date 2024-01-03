@@ -13,43 +13,10 @@
 ##     +                                                          +               ##
 ##    '                                                          '                ##
 ####################################################################################
-##            Copyright © 2022 Tyler J. Kenney. All rights reserved.              ##
+##            Copyright © 2024 Tyler J. Kenney. All rights reserved.              ##
 ####################################################################################
 ####################################################################################
-
-[alias]
-        co = checkout
-        stat = status
-        st = status -uno
-        ci = commit
-        stasharoo = stash
-        push-current-branch = push origin HEAD
 
 [user]
-	email = tjk213@gmail.com
-	name = Tyler J. Kenney
-
-## Source .gitconfig-modular if the active repo has a modularml remote.
-##
-## Note that we can't override email/name directly here; the only supported
-## conditional op is include.
-##
-## Also note that the include path here is relative to the location of this file,
-## before dereferencing symlinks. This means that if we're symlinking ~/.gitconfig
-## to $TKD/.gitconfig (as recommended), then .gitconfig-modular must also be
-## symlinked. This is a bit error prone, and will fail silently if the modular
-## symlink is missing. If this becomes an issue, the best solution is probably to
-## set GIT_CONFIG_GLOBAL in coreutils and avoid symlinks entirely.
-[includeIf "hasconfig:remote.*.url:git@github.com:modularml/**"]
-	path = .gitconfig-modular
-
-[core]
-	excludesFile = ~/.gitignore
-[pull]
-	ff = only
-
-[filter "lfs"]
-	required = true
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
+	email = tyler@modular.com
+	name = Tyler Kenney
