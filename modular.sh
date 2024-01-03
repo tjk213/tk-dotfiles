@@ -26,6 +26,12 @@ export I=$HOME/workspace/infra
 export R=$HOME/workspace/recommenders
 export F=$HOME/workspace/ferrari-models
 
+## Early-return if the monorepo doesn't exist; presumably we're not on a modular
+## system.
+if [[ ! -d "$M" ]]; then
+    return 1
+fi
+
 ##
 ## Python
 ##

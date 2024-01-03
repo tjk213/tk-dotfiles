@@ -24,6 +24,7 @@ source ${TOP}/history.sh
 source ${TOP}/ps.sh
 source ${TOP}/termctl.sh
 source ${TOP}/tmux.sh
+source ${TOP}/modular.sh
 
 ##
 ## Customize shell prompt
