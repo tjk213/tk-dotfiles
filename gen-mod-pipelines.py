@@ -26,11 +26,11 @@ import subprocess
 from typing import List
 
 PIPELINES = [
-    { 'name': 'tf_to_mo', 'start': 'tf-to-mo{prune-assert-ops=true use-mo-ops=true}' },
+    { 'name': 'tf_to_mo', 'start': 'tf-to-mo{ prune-assert-ops=true use-mo-ops=true}' },
     { 'name': 'shape_inference', 'start': 'resolve-unknown-parameters' },
     { 'name': 'mo_to_mogg', 'start': 'mo.graph(infer-layouts)' },
     { 'name': 'mo_fusion',  'start': 'mo.graph(fuse-elementwise{dump-dot-graph=false})' },
-    { 'name': 'mogg_to_mgp','start': 'jit-compile-kernels{create-mogg-reproducers=false dump-stub=false extra-lib-paths= min-cpu-alignment=16 save-temp-prefix= use-search=false}' }
+    { 'name': 'mogg_to_mgp','start': 'jit-compile-kernels{create-mogg-reproducers=false dump-stub=false  min-cpu-alignment=16 save-temp-prefix= use-search=false}' }
 ]
 
 def print_header():
@@ -75,7 +75,7 @@ def get_pipeline_passes(pipeline: str) -> List[str]:
     passes = passes_dump.group(1).split(',')
 
     print(f'{pipeline}: {num_passes} passes',file=sys.stderr)
-    #print('\n'.join(passes))
+    #print('\n'.join(passes),file=sys.stderr)
 
     return passes
 
