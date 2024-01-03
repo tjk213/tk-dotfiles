@@ -66,3 +66,7 @@ If you'd like, you can directly link `$HOME/.bashrc` to `tk-dotfiles/.bashrc`, b
 
   - `htop-cpu2.cfg`: 2 columns of CPU meters
   - `htop-cpu4.cfg`: 4 columns of CPU meters
+
+### CCACHE
+
+In `coreutils.sh`, we set `CCACHE_CONFIGPATH` to point into this repo. This means the local copy of `ccache.conf` will be used automatically; no setup necessary. However, the default _data_ directory for ccache is `$HOME/.ccache/`, which is typically mounted on the system's root filesystem partition. On systems where root partitions have limited capacity, overriding this setting or linking `$HOME/.ccache/` may be advisable.
