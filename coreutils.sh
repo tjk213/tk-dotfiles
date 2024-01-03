@@ -107,6 +107,7 @@ alias emacs='TERM=xterm-256color emacs'
 ##
 
 export EDITOR=emacs
+export CCACHE_CONFIGPATH="${THIS_DIR}/ccache.conf"
 
 ##
 ## Directory Shortcuts
