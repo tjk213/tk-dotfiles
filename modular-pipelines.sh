@@ -53,7 +53,7 @@ cse,
 canonicalize{  max-iterations=10 max-num-rewrites=-1 region-simplify=true test-convergence=false top-down=true},
 mo.graph(symbolic-optimize),
 mo.graph(propagate-shapes),
-mo.graph(add-fallback-shape-funcs{}),
+mo.graph(add-fallback-shape-funcs{ restricted=false}),
 canonicalize{  max-iterations=10 max-num-rewrites=-1 region-simplify=true test-convergence=false top-down=true},
 cse,
 mo.graph(symbolic-optimize),
@@ -77,6 +77,8 @@ cse,
 constant-fold{iterations=2},
 mo.graph(hoist-param-exprs),
 mo-to-mogg{},
+mo.graph(simplify-kernel-operands),
+mo.graph(simplify-kgen-parameters),
 canonicalize{  max-iterations=10 max-num-rewrites=-1 region-simplify=true test-convergence=false top-down=true},
 cse
 )"
@@ -87,24 +89,28 @@ export mo_fusion="builtin.module(
 mo.graph(fuse-elementwise{dump-dot-graph=false}),
 canonicalize{  max-iterations=10 max-num-rewrites=-1 region-simplify=true test-convergence=false top-down=true},
 cse,
+mo.graph(simplify-kernel-operands),
 mo.graph(fuse-bcasts),
 canonicalize{  max-iterations=10 max-num-rewrites=-1 region-simplify=true test-convergence=false top-down=true},
 cse,
+mo.graph(simplify-kernel-operands),
 mo.graph(fuse-in-out-lambdas),
 cse,
+mo.graph(simplify-kernel-operands),
 mo.graph(mark-trivial-kernels),
 mo.graph(inline-lambdas),
 mo.graph(soft-fuse{non-host-kernel-limit=3 small-tensor-limit=1024}),
-mo.graph(add-explicit-chain-ready),
 mo.graph(fuse-consts),
 canonicalize{  max-iterations=10 max-num-rewrites=-1 region-simplify=true test-convergence=false top-down=true},
-cse
+cse,
+mo.graph(simplify-kernel-operands),
+mo.graph(inline-kgen-parameters)
 )"
 
 
 ## Sub-Pipeline: mogg_to_mgp
 export mogg_to_mgp="builtin.module(
-jit-compile-kernels{create-mogg-reproducers=false dump-stub=false  min-cpu-alignment=16 save-temp-prefix= use-search=false},
+jit-compile-kernels{create-mogg-reproducers=false dump-stub=false  min-cpu-alignment=16 save-temp-prefix= split-binary-compile=false use-search=false},
 mo-to-primitives{compiled-framework-label=mof min-cpu-alignment=16},
 cse,
 remove-redundant-tensor-extracts,
@@ -116,6 +122,7 @@ mgp.model(exec-invariant-code-motion),
 mgp.model(verify-model-arguments),
 mgp.model(strip-buffer-attributes),
 canonicalize{  max-iterations=10 max-num-rewrites=-1 region-simplify=true test-convergence=false top-down=true},
+cse,
 mgp.model(simplify-chains),
 cse
 )"
