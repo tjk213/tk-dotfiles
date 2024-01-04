@@ -80,6 +80,20 @@ alias gd='git diff'
 alias ga='git add'
 alias gc='git commit'
 
+# git print modified files (by position)
+alias gp1="git ls-files --modified | head -1 | tail -1"
+alias gp2="git ls-files --modified | head -2 | tail -1"
+alias gp3="git ls-files --modified | head -3 | tail -1"
+alias gp4="git ls-files --modified | head -4 | tail -1"
+
+# git diff/add first modified file
+alias gd1="git diff $(gp1)"
+alias ga1="git diff $(gp1)"
+
+# git diff/add top modified file
+alias gdt='gd1'
+alias gat='ga1'
+
 alias is-git-repo='git rev-parse --is-inside-work-tree &>/dev/null'
 alias get-git-branch='is-git-repo && git branch --show-current'
 
