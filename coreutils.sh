@@ -82,7 +82,7 @@ alias gs='git status'
 alias gl='git log-pretty -36'
 alias gd='git diff'
 alias ga='git add'
-alias gc='git commit'
+alias gc='git commit-checked'
 alias gb='git branch-pretty'
 
 # git print modified files (by position)

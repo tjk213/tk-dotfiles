@@ -58,7 +58,7 @@ def main():
     ## ALL CHECKS PASSED: Forward command
     command = ['git', 'commit']
     if args.all:
-        command.append(' --all')
+        command.append('--all')
     command += unknown
     subprocess.run(command, check=False, capture_output=False)
     return

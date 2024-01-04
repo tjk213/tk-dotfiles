@@ -21,7 +21,8 @@
         co = checkout
         stat = status
         st = status -uno
-        ci = commit
+        commit-checked = !python ${TKD}/git-commit-checked.py
+        ci = commit-checked
         stasharoo = stash
         push-current-branch = push origin HEAD
 	branch-pretty = branch --format='%(HEAD) %(color:yellow)%(refname:short): %(color:reset)%(authorname) %(color:dim red)(%(committerdate:relative))'
