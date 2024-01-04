@@ -79,6 +79,7 @@ alias gl='git log'
 alias gd='git diff'
 alias ga='git add'
 alias gc='git commit'
+alias gb='git branch-pretty'
 
 # git print modified files (by position)
 alias gp1="git ls-files --modified | head -1 | tail -1"

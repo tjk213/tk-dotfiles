@@ -24,6 +24,10 @@
         ci = commit
         stasharoo = stash
         push-current-branch = push origin HEAD
+	branch-pretty = branch --format='%(HEAD) %(color:yellow)%(refname:short): %(color:reset)%(authorname) %(color:dim red)(%(committerdate:relative))'
+	br = branch-pretty
+	branch-by-name = branch-pretty --sort=refname:short
+	branch-by-date = branch-pretty --sort=-committerdate
 
 [user]
 	email = tjk213@gmail.com
