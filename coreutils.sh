@@ -74,6 +74,10 @@ alias python='python3'
 alias grep='grep --color=auto'
 alias backup="$THIS_DIR/backup.py"
 
+##
+## Git aliases
+##
+
 alias gs='git status'
 alias gl='git log-pretty -36'
 alias gd='git diff'
@@ -97,6 +101,24 @@ alias gat='ga1'
 
 alias is-git-repo='git rev-parse --is-inside-work-tree &>/dev/null'
 alias get-git-branch='is-git-repo && git branch --show-current'
+
+##
+## Copy/paste aliases
+## Usage:
+##    % echo 'foobar' | copy
+##    % copy < file
+##    % <paste with ctrl/cmd-v anywhere>
+##    % paste | grep baz > file2
+##
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # macOS
+    alias copy='pbcopy'
+    alias paste='pbpaste'
+else # Assuming linux
+    alias copy='xclip -sel clip'
+    alias paste='xclip -sel clip -o'
+fi
 
 
 ## Overide TERM in emacs environment
