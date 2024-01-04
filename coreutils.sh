@@ -75,7 +75,7 @@ alias grep='grep --color=auto'
 alias backup="$THIS_DIR/backup.py"
 
 alias gs='git status'
-alias gl='git log'
+alias gl='git log-pretty -36'
 alias gd='git diff'
 alias ga='git add'
 alias gc='git commit'

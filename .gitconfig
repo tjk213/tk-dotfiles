@@ -28,6 +28,8 @@
 	br = branch-pretty
 	branch-by-name = branch-pretty --sort=refname:short
 	branch-by-date = branch-pretty --sort=-committerdate
+	log-pretty = log --pretty=format:'%C(magenta)%h:%Creset %C(yellow)%<(18)%an%Creset %C(dim green)(%cr)%Creset %s %C(red)%d'
+	lg = log-pretty
 
 [user]
 	email = tjk213@gmail.com
