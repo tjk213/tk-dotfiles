@@ -91,9 +91,17 @@ alias gp2="git ls-files --modified | head -2 | tail -1"
 alias gp3="git ls-files --modified | head -3 | tail -1"
 alias gp4="git ls-files --modified | head -4 | tail -1"
 
-# git diff/add first modified file
+# git diff files by position
 alias gd1="git diff $(gp1)"
-alias ga1="git diff $(gp1)"
+alias gd2="git diff $(gp2)"
+alias gd3="git diff $(gp3)"
+alias gd4="git diff $(gp4)"
+
+# git add files by position
+alias ga1="git add $(gp1)"
+alias ga2="git add $(gp2)"
+alias ga3="git add $(gp3)"
+alias ga4="git add $(gp4)"
 
 # git diff/add top modified file
 alias gdt='gd1'
