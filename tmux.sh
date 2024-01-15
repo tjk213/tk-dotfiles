@@ -124,3 +124,6 @@ function tmux-nv()
     # Attach!
     tmux attach -t $SESSION
 }
+
+alias tmd='tmux-default'
+alias tmn='tmux-nv'
