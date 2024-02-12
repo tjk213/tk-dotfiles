@@ -165,6 +165,8 @@ export CCACHE_CONFIGPATH="${THIS_DIR}/ccache.conf"
 ## Directory Shortcuts
 ##
 
+export B=$HOME/backups
+export D=$HOME/Downloads
 export W=$HOME/workspace
 export TKD=$W/tk-dotfiles
 
