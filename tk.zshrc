@@ -21,7 +21,7 @@ TOP="${0:A:h}"
 
 source ${TOP}/core/coreutils.sh
 source ${TOP}/core/history.sh
-source ${TOP}/ps.sh
+source ${TOP}/core/ps.sh
 source ${TOP}/termctl.sh
 source ${TOP}/tmux.sh
 source ${TOP}/modular/modular.sh
