@@ -23,8 +23,8 @@
 
 export M=$HOME/workspace/modular
 export I=$HOME/workspace/infra
-export R=$HOME/workspace/recommenders
-export F=$HOME/workspace/ferrari-models
+export R=$HOME/workspace/roblox-benchmarking
+export F=$HOME/workspace/ferrari-benchmarking
 
 ## Early-return if the monorepo doesn't exist; presumably we're not on a modular
 ## system.
@@ -38,12 +38,6 @@ fi
 
 DISABLE_CHDIR=1 source $M/utils/start-modular.sh
 unset -f model
-
-INFRA_STARTUP_FILE=$I/start-infra-dev.sh
-
-if [[ -f "$INFRA_STARTUP_FILE" ]]; then
-    cd $I && source $INFRA_STARTUP_FILE && cd $OLDPWD
-fi
 
 ##
 ## Tracefiles
@@ -64,16 +58,6 @@ alias select-runs="jq '.traceEvents[] | select(.name==\"runModelOnce\")'"
 ## NB: Sorting the trace could be slow for big models. We could flip this around
 ##     and filter first if necessary.
 alias list-runs="sort-trace | select-runs | jq -c '{name, ts, dur}'"
-
-##
-## VM IPs
-##
-
-function get-mdcm-vm-ip() { cd $I && echo $(mdcm vm list -n $1 -ip) && cd $OLDPWD; }
-function AMD()  { echo $(get-mdcm-vm-ip amd-22.04); }
-function GRAV() { echo $(get-mdcm-vm-ip grav-22.04); }
-function INTEL() { echo $(get-mdcm-vm-ip x86-22.04); }
-function INTEL-12XL() { echo $(get-mdcm-vm-ip x86-c5-12xlarge); }
 
 ##
 ## MLIR Pipelines
