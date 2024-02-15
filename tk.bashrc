@@ -23,7 +23,7 @@ source ${TOP}/core/coreutils.sh
 source ${TOP}/core/history.sh
 source ${TOP}/core/ps.sh
 source ${TOP}/term/termctl.sh
-source ${TOP}/tmux.sh
+source ${TOP}/term/tmux.sh
 source ${TOP}/modular/modular.sh
 
 # check the window size after each command and, if necessary,
