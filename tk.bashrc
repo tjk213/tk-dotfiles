@@ -19,7 +19,7 @@
 
 TOP=$(dirname -- "${BASH_SOURCE[0]}")
 
-source ${TOP}/coreutils.sh
+source ${TOP}/core/coreutils.sh
 source ${TOP}/history.sh
 source ${TOP}/ps.sh
 source ${TOP}/termctl.sh

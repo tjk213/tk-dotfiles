@@ -19,7 +19,7 @@
 
 TOP="${0:A:h}"
 
-source ${TOP}/coreutils.sh
+source ${TOP}/core/coreutils.sh
 source ${TOP}/history.sh
 source ${TOP}/ps.sh
 source ${TOP}/termctl.sh
