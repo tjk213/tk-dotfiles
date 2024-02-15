@@ -72,7 +72,7 @@ alias ll='ls -lhBv --group-directories-first --color=auto'
 alias e='emacs'
 alias python='python3'
 alias grep='grep --color=auto'
-alias backup="$THIS_DIR/backup.py"
+alias backup="$THIS_DIR/core/backup.py"
 
 ##
 ## Git aliases
