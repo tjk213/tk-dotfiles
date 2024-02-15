@@ -168,7 +168,6 @@ export CCACHE_CONFIGPATH="${THIS_DIR}/core/ccache.conf"
 export B=$HOME/backups
 export D=$HOME/Downloads
 export W=$HOME/workspace
-export TKD=$W/tk-dotfiles
 
 ##
 ## Prompt Commands

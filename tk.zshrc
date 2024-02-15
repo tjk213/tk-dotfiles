@@ -17,14 +17,14 @@
 ####################################################################################
 ####################################################################################
 
-TOP="${0:A:h}"
+export TKD="${0:A:h}"
 
-source ${TOP}/core/coreutils.sh
-source ${TOP}/core/history.sh
-source ${TOP}/core/ps.sh
-source ${TOP}/term/termctl.sh
-source ${TOP}/term/tmux.sh
-source ${TOP}/modular/modular.sh
+source ${TKD}/core/coreutils.sh
+source ${TKD}/core/history.sh
+source ${TKD}/core/ps.sh
+source ${TKD}/term/termctl.sh
+source ${TKD}/term/tmux.sh
+source ${TKD}/modular/modular.sh
 
 ##
 ## Customize shell prompt
