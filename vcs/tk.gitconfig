@@ -21,7 +21,7 @@
         co = checkout
         stat = status
         st = status -uno
-        commit-checked = !python ${TKD}/git-commit-checked.py
+        commit-checked = !python ${TKD}/vcs/git-commit-checked.py
         ci = commit-checked
         stasharoo = stash
         push-current-branch = push origin HEAD
