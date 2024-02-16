@@ -1,4 +1,4 @@
-####################################################################################
+################################################################# -*- sh -*- #######
 ##               ,:                                                         ,:    ##
 ##             ,' |                                                       ,' |    ##
 ##            /   :                                                      /   :    ##
@@ -17,14 +17,14 @@
 ####################################################################################
 ####################################################################################
 
-TOP="${0:A:h}"
+export TKD="${0:A:h}"
 
-source ${TOP}/coreutils.sh
-source ${TOP}/history.sh
-source ${TOP}/ps.sh
-source ${TOP}/termctl.sh
-source ${TOP}/tmux.sh
-source ${TOP}/modular.sh
+source ${TKD}/core/coreutils.sh
+source ${TKD}/core/history.sh
+source ${TKD}/core/ps.sh
+source ${TKD}/term/termctl.sh
+source ${TKD}/term/tmux.sh
+source ${TKD}/modular/modular.sh
 
 ##
 ## Customize shell prompt

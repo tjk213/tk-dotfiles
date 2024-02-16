@@ -72,7 +72,7 @@ alias ll='ls -lhBv --group-directories-first --color=auto'
 alias e='emacs'
 alias python='python3'
 alias grep='grep --color=auto'
-alias backup="$THIS_DIR/backup.py"
+alias backup="$THIS_DIR/core/backup.py"
 
 ##
 ## Git aliases
@@ -159,7 +159,7 @@ alias emacs='TERM=xterm-256color emacs'
 export EDITOR=emacs
 export CC=clang
 export CXX=clang++
-export CCACHE_CONFIGPATH="${THIS_DIR}/ccache.conf"
+export CCACHE_CONFIGPATH="${THIS_DIR}/toolchain/ccache.conf"
 
 ##
 ## Directory Shortcuts
@@ -168,7 +168,6 @@ export CCACHE_CONFIGPATH="${THIS_DIR}/ccache.conf"
 export B=$HOME/backups
 export D=$HOME/Downloads
 export W=$HOME/workspace
-export TKD=$W/tk-dotfiles
 
 ##
 ## Prompt Commands

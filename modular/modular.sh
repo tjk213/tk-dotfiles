@@ -63,8 +63,8 @@ alias list-runs="sort-trace | select-runs | jq -c '{name, ts, dur}'"
 ## MLIR Pipelines
 ##
 
-if [[ -f  "${TOP}/modular-pipelines.sh" ]] ; then
-    source ${TOP}/modular-pipelines.sh
+if [[ -f  "${TKD}/modular/modular-pipelines.sh" ]] ; then
+    source ${TKD}/modular/modular-pipelines.sh
 fi
 
 function dump-op-graph() {
@@ -98,8 +98,8 @@ function tf-to-mgp()
 }
 
 
-if [[ -f  "${TOP}/modular-local.sh" ]] ; then
-    source ${TOP}/modular-local.sh
+if [[ -f  "${TKD}/modular/modular-local.sh" ]] ; then
+    source ${TKD}/modular/modular-local.sh
 fi
 
 ##
