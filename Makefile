@@ -17,8 +17,28 @@
 ####################################################################################
 ####################################################################################
 
+##
+## Globals
+##
+
+OS := $(shell uname -s)
 HTOP_RC_PATH  := $(HOME)/.config/htop/htoprc
 NUM_HTOP_COLS := $(shell bash -c "source $(TKD)/term/tmux.sh && htop-num-cpu-cols")
+
+##
+## Install dependencies
+##
+
+install-deps:
+ifeq ($(OS), Darwin)
+	brew install coreutils     # Install GNU utils like `ls` as `gls`
+	brew install util-linux    # Install GNU column & more
+	brew install sponge
+endif
+
+##
+## Install dotfiles
+##
 
 install-core:
 	ln -rfs $(TKD)/core/tk.inputrc $(HOME)/.inputrc
