@@ -17,11 +17,9 @@
 ####################################################################################
 ####################################################################################
 
-# Return the height we want for our htop pane.
-# This is a function of the # of cores in the system, as well as the htop config.
-function htop-pane-height()
+# Return the # of columns of CPU meters we want in htop
+function htop-num-cpu-cols()
 {
-    local num_header_rows=4 # Assuming 3 rows of system info (plus blank).
     local num_cpus=$(nproc)
 
     if [[ $num_cpus -lt 16 ]]; then
@@ -31,7 +29,16 @@ function htop-pane-height()
     else
 	num_cpu_cols=8
     fi
+    echo ${num_cpu_cols}
+}
 
+# Return the height we want for our htop pane.
+# This is a function of the # of cores in the system, as well as the htop config.
+function htop-pane-height()
+{
+    local num_header_rows=4 # Assuming 3 rows of system info (plus blank).
+    local num_cpus=$(nproc)
+    local num_cpu_cols=$(htop-num-cpu-cols)
     # FIXME: This will break if cols doesn't divide num_cpus evenly
     local num_cpu_rows=$(($num_cpus/$num_cpu_cols))
     local num_trailing_rows=2
