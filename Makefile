@@ -96,3 +96,6 @@ install-dotfiles: install-toolchain install-term install-vcs install-top
 
 uninstall-dotfiles: uninstall-core uninstall-editor uninstall-stat
 uninstall-dotfiles: uninstall-toolchain uninstall-term uninstall-vcs uninstall-top
+
+dirs:
+	mkdir -p $(HOME)/apps $(HOME)/backups $(HOME)/venvs $(HOME)/workspace
