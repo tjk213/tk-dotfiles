@@ -63,9 +63,11 @@ install-vcs:
 	ln -rfs $(TKD)/vcs/tk.gitconfig $(HOME)/.gitconfig
 	ln -rfs $(TKD)/vcs/modular.gitconfig $(HOME)/.modular.gitconfig # Note dot
 
-install: install-core install-editor install-stat
-install: install-toolchain install-term install-vcs
-
-install:
+## For top-level startup files, we install by editing home directory rather than
+## symlinking it. This leaves a place for one-off configuration in the home dir.
+install-top:
 	echo "source $(TKD)/tk.bashrc" >> $(HOME)/.bashrc
 	echo "source $(TKD)/tk.zshrc"  >> $(HOME)/.zshrc
+
+install: install-core install-editor install-stat
+install: install-toolchain install-term install-vcs install-top
