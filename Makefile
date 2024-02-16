@@ -26,6 +26,12 @@ HTOP_RC_PATH  := $(HOME)/.config/htop/htoprc
 NUM_HTOP_COLS := $(shell bash -c "source $(TKD)/term/tmux.sh && htop-num-cpu-cols")
 
 ##
+## Default target
+##
+
+all: # For now, all does nothing.
+
+##
 ## Install dependencies
 ##
 
