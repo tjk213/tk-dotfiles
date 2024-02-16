@@ -19,31 +19,17 @@
 ====================================================================================
 ```
 
-## Installation
+## Quickstart
 
-To first order, `tk-dotfiles` can be installed simply by symlinking all dotfiles in this repo from your home directory. Non-dotfiles do not require any setup. Any exceptions & additional steps are outlined below.
-
-### .bashrc & .zshrc
-
-If you'd like, you can directly link the startup files like all other dotfiles but it's probably better to source from your home dir:
+``` bash
+% # Install packages via brew (mac) or apt (linux). May require sudo.
+% make install-deps
+% # Install dotfiles, this will symlink everything from the home dir and therefore
+% # overwrite the user's existing files.
+% make install-dotfiles
+% # Make default directories
+% make dirs
 ```
-% echo "source $(realpath .)/.bashrc" >> $HOME/.bashrc
-% echo "source $(realpath .)/.zshrc"  >> $HOME/.zshrc
-```
-This leaves any default system configuration that's been placed in your startup files in place (save for anything that's explicitly overwritten, of course).
-
-### HTOP
-
-`htop` reads its config from `$HOME/.config/htop/htoprc`. So this is the file that must be linked to the desired config:
-
-  - `htop-cpu2.cfg`: 2 columns of CPU meters
-  - `htop-cpu4.cfg`: 4 columns of CPU meters
-  - `htop-cpu8.cfg`: 8 columns of CPU meters
-
-### CCACHE
-
-In `coreutils.sh`, we set `CCACHE_CONFIGPATH` to point into this repo. This means the local copy of `ccache.conf` will be used automatically; no setup necessary. However, the default _data_ directory for ccache is `$HOME/.ccache/`, which is typically mounted on the system's root filesystem partition. On systems where root partitions have limited capacity, overriding this setting or linking `$HOME/.ccache/` may be advisable.
-
 ## Notes on Repo Access
 
 It is sometimes wise to access github with a non-default RSA key. If this is desired, the easiest way to clone the repo is:
