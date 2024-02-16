@@ -17,14 +17,6 @@
 ####################################################################################
 ####################################################################################
 
-if [[ -n "$BASH_VERSION" ]] ; then
-    THIS_DIR=$(realpath $(dirname -- "${BASH_SOURCE[0]}"))
-elif [[ -n "$ZSH_VERSION" ]] ; then
-    THIS_DIR="${0:A:h}"
-else
-    echo 1>&2 "coreutils.sh: Unexpected shell!"
-fi
-
 ##
 ## PATH
 ##
@@ -72,7 +64,7 @@ alias ll='ls -lhBv --group-directories-first --color=auto'
 alias e='emacs'
 alias python='python3'
 alias grep='grep --color=auto'
-alias backup="$THIS_DIR/core/backup.py"
+alias backup="${TKD}/core/backup.py"
 
 ##
 ## Git aliases
@@ -159,7 +151,7 @@ alias emacs='TERM=xterm-256color emacs'
 export EDITOR=emacs
 export CC=clang
 export CXX=clang++
-export CCACHE_CONFIGPATH="${THIS_DIR}/toolchain/ccache.conf"
+export CCACHE_CONFIGPATH="${TKD}/toolchain/ccache.conf"
 
 ##
 ## Directory Shortcuts
@@ -201,9 +193,3 @@ fi
 if [[ -z "$VIRTUAL_ENV" ]] ; then
     source $HOME/venvs/py-${DEFAULT_PYTHON_VERSION}/bin/activate
 fi
-
-##
-## Cleanup
-##
-
-unset THIS_DIR
