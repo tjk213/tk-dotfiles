@@ -34,7 +34,7 @@ install-toolchain:
 install-vcs:
 	ln -rfs $(TKD)/vcs/tk.gitignore $(HOME)/.gitignore
 	ln -rfs $(TKD)/vcs/tk.gitconfig $(HOME)/.gitconfig
-	ln -rfs $(TKD)/vcs/modular.gitconfig $(HOME)/modular.gitconfig
+	ln -rfs $(TKD)/vcs/modular.gitconfig $(HOME)/.modular.gitconfig # Note dot
 
 install: install-core install-editor install-toolchain install-term install-vcs
 	echo "source $(TKD)/tk.bashrc" >> $(HOME)/.bashrc

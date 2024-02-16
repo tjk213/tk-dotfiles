@@ -44,11 +44,15 @@
 ## Also note that the include path here is relative to the location of this file,
 ## before dereferencing symlinks. This means that if we're symlinking ~/.gitconfig
 ## to $TKD/tk.gitconfig (as recommended), then modular.gitconfig must also be
-## symlinked. This is a bit error prone, and will fail silently if the modular
-## symlink is missing. If this becomes an issue, the best solution is probably to
-## set GIT_CONFIG_GLOBAL in coreutils and avoid symlinks entirely.
+## symlinked. We don't want a file named modular.gitconfig in our home dir, so we
+## point this to .modular.gitconfig (note the dot) and leave it to the install
+## step to map with-dot to no-dot.
+##
+## This is a bit error prone, and will fail silently if the modular symlink is
+## missing. If this becomes an issue, the best solution is probably to set
+## GIT_CONFIG_GLOBAL in coreutils and avoid symlinks entirely.
 [includeIf "hasconfig:remote.*.url:git@github.com:modularml/**"]
-	path = modular.gitconfig
+	path = .modular.gitconfig
 
 [core]
 	excludesFile = ~/.gitignore
