@@ -69,5 +69,5 @@ install-top:
 	echo "source $(TKD)/tk.bashrc" >> $(HOME)/.bashrc
 	echo "source $(TKD)/tk.zshrc"  >> $(HOME)/.zshrc
 
-install: install-core install-editor install-stat
-install: install-toolchain install-term install-vcs install-top
+install-dotfiles: install-core install-editor install-stat
+install-dotfiles: install-toolchain install-term install-vcs install-top
