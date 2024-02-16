@@ -41,6 +41,8 @@ ifeq ($(OS), Darwin)
 	brew install coreutils     # Install GNU utils like `ls` as `gls`
 	brew install util-linux    # Install GNU column & more
 	brew install sponge
+else ifeq ($(OS), Linux)
+	apt-get install moreutils  # Install sponge
 endif
 
 ##
