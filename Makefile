@@ -48,9 +48,9 @@ init-system: init-system-debian
 endif
 
 init-system-macos:
-	brew install coreutils     # Install GNU utils like `ls` as `gls`
-	brew install util-linux    # Install GNU column & more
-	brew install sponge
+	sudo -u $(USER) brew install coreutils     # Install GNU utils like `ls` as `gls`
+	sudo -u $(USER) brew install util-linux    # Install GNU column & more
+	sudo -u $(USER) brew install sponge
 
 init-system-debian:
 	apt-get install moreutils  # Install sponge
