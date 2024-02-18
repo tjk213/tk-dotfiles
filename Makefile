@@ -48,8 +48,15 @@ init-system: init-system-debian
 endif
 
 ## Debian init
+DEBIAN_PACKAGES += moreutils  # Install sponge
+
 init-system-debian:
-	apt-get install moreutils  # Install sponge
+	apt-get install $(DEBIAN_PACKAGES)
+
+## MacOS init
+HOMEBREW_PACKAGES += coreutils  # Install GNU utils like `ls` as `gls`
+HOMEBREW_PACKAGES += util-linux # Install GNU column & more
+HOMEBREW_PACKAGES += sponge
 
 ## On macos, `brew install` needs to be run from user account but other init steps
 ## need sudo, plus we want an identical install flow between mac & linux. Therefore,
@@ -60,9 +67,7 @@ ifeq ($(USER), root)
 	$(warning "USAGE: sudo make init-system-macos USER=my-username")
 	$(error "init-system-macos requires username\n\n\n")
 endif
-	sudo -u $(USER) brew install coreutils     # Install GNU utils like `ls` as `gls`
-	sudo -u $(USER) brew install util-linux    # Install GNU column & more
-	sudo -u $(USER) brew install sponge
+	sudo -u $(USER) brew install $(HOMEBREW_PACKAGES)
 
 ##
 ## Install dotfiles
