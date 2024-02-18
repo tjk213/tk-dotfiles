@@ -40,14 +40,20 @@ all: # For now, all does nothing.
 ## system-wide, so only necessary to run once even if we have multiple accounts.
 ##
 
-init-system:
 ifeq ($(OS), Darwin)
+init-system: init-system-macos
+else ifeq ($(OS), Linux)
+## FIXME: For now, we assume linux == debian
+init-system: init-system-debian
+endif
+
+init-system-macos:
 	brew install coreutils     # Install GNU utils like `ls` as `gls`
 	brew install util-linux    # Install GNU column & more
 	brew install sponge
-else ifeq ($(OS), Linux)
+
+init-system-debian:
 	apt-get install moreutils  # Install sponge
-endif
 
 ##
 ## Install dotfiles
