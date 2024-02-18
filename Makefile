@@ -48,9 +48,13 @@ init-system: init-system-debian
 endif
 
 ## Debian init
+DEBIAN_PACKAGES += build-essential
+DEBIAN_PACKAGES += clang llvm lld lldb ccache
+DEBIAN_PACKAGES += tmux git emacs
 DEBIAN_PACKAGES += moreutils  # Install sponge
 
 init-system-debian:
+	apt-get update
 	apt-get install $(DEBIAN_PACKAGES)
 
 ## MacOS init
