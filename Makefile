@@ -55,7 +55,7 @@ DEBIAN_PACKAGES += moreutils  # Install sponge
 
 init-system-debian:
 	apt-get update
-	apt-get install $(DEBIAN_PACKAGES)
+	apt-get install $(strip $(DEBIAN_PACKAGES))
 
 ## MacOS init
 USAGE = "USAGE: sudo make init-system USERNAME=my-username"
@@ -124,7 +124,7 @@ ifndef USERNAME
 	$(warning $(USAGE))
 	$(error "init-system-macos requires username")
 endif
-	sudo -u $(USERNAME) brew install $(HOMEBREW_PACKAGES)
+	sudo -u $(USERNAME) brew install $(strip $(HOMEBREW_PACKAGES))
 
 init-system-macos: macos-install-packages caffeinate-on-boot
 
