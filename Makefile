@@ -96,7 +96,7 @@ HOMEBREW_PACKAGES += sponge
 CRON = crontab
 CAFFEINATE = /usr/bin/caffeinate
 CRON_FILTER   = $(CRON) -l | grep -v $(CAFFEINATE)
-CRON_REGISTER = echo '@reboot $(CAFFEINATE) -isd &!'
+CRON_REGISTER = echo '@reboot $(CAFFEINATE) -isd'
 
 caffeinate-on-boot:
 ifneq ($(USER), root)
