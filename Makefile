@@ -33,10 +33,14 @@ NUM_HTOP_COLS := $(shell bash -c "source $(THIS_DIR)/term/tmux.sh && htop-num-cp
 all: # For now, all does nothing.
 
 ##
-## Install dependencies
+## Init system
+##
+## Install system-wide packages, some of which are strict dependencies for subsequent
+## targets in this makefile, others may just be commonly used packages. This is
+## system-wide, so only necessary to run once even if we have multiple accounts.
 ##
 
-install-deps:
+init-system:
 ifeq ($(OS), Darwin)
 	brew install coreutils     # Install GNU utils like `ls` as `gls`
 	brew install util-linux    # Install GNU column & more
