@@ -58,6 +58,7 @@ init-system-debian:
 	apt-get install $(DEBIAN_PACKAGES)
 
 ## MacOS init
+USAGE = "USAGE: sudo make init-system USERNAME=my-username"
 HOMEBREW_PACKAGES += coreutils  # Install GNU utils like `ls` as `gls`
 HOMEBREW_PACKAGES += util-linux # Install GNU column & more
 HOMEBREW_PACKAGES += sponge
@@ -67,11 +68,11 @@ HOMEBREW_PACKAGES += sponge
 ## we make the user pass in their username and use sudo to, believe it or not, drop
 ## privilege level before installing.
 init-system-macos:
-ifeq ($(USER), root)
-	$(warning "USAGE: sudo make init-system-macos USER=my-username")
-	$(error "init-system-macos requires username\n\n\n")
+ifndef USERNAME
+	$(warning $(USAGE))
+	$(error "init-system-macos requires username")
 endif
-	sudo -u $(USER) brew install $(HOMEBREW_PACKAGES)
+	sudo -u $(USERNAME) brew install $(HOMEBREW_PACKAGES)
 
 ##
 ## Install dotfiles
