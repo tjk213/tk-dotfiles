@@ -84,11 +84,11 @@ HOMEBREW_PACKAGES += sponge
 ##  - There is no builtin way to append a job from the command line; only over-
 ##    write. This means we have to build our own pipeline for appending.
 ##
-##  - On macOS sonoma, @reboot appears to only work in the root's crontab. You
-##    can write an @reboot line as any user of course, but as far as I can tell
-##    user-level @reboot directives are entirely ignored. This means that
-##    accidentally executing this target without sudo would fail silently, so we
-##    include an explicit check for the root user.
+##  - On some systems, @reboot may only work in the root's crontab. You can
+##    write an @reboot line as any user of course, but user-level @reboot
+##    directives may be ignored. This means that accidentally executing this
+##    target without sudo would fail silently, so we include an explicit check for
+##    the root user.
 ##
 ## References:
 ##    - https://unix.stackexchange.com/questions/109804/crontabs-reboot-only-works-for-root
