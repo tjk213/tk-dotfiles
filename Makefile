@@ -63,16 +63,60 @@ HOMEBREW_PACKAGES += coreutils  # Install GNU utils like `ls` as `gls`
 HOMEBREW_PACKAGES += util-linux # Install GNU column & more
 HOMEBREW_PACKAGES += sponge
 
+## Register caffeinate to start on boot via cronjob.
+##
+## For some reason I cannot find any combination of settings in system preferences
+## that let my screensaver play indefinitely (when on AC power). The only solution
+## I am able to find is running caffeinate in a terminal, so we register it to
+## start on boot.
+##
+## We use crontab's @reboot syntax to register the command on boot. According to
+## the internet, cron has been deprecated in favor of launchd / launchctl but, in
+## my experience launchd is tremendously complicated and cron is easy so we're
+## going with that. Despite the deprecation, it seems unlikely that apple will
+## actually remove support for cron (this would break posix compliance?) and even
+## if this were to occur homebrew or some other community would presumably provide
+## an alternative distribution.
+##
+## Although, imo, launchd is worse there are still some gotcha's with this cron
+## solution:
+##
+##  - There is no builtin way to append a job from the command line; only over-
+##    write. This means we have to build our own pipeline for appending.
+##
+##  - On macOS sonoma, @reboot appears to only work in the root's crontab. You
+##    can write an @reboot line as any user of course, but as far as I can tell
+##    user-level @reboot directives are entirely ignored. This means that
+##    accidentally executing this target without sudo would fail silently, so we
+##    include an explicit check for the root user.
+##
+## References:
+##    - https://unix.stackexchange.com/questions/109804/crontabs-reboot-only-works-for-root
+##    - https://apple.stackexchange.com/questions/12819/why-is-cron-being-deprecated
+CRON = crontab
+CAFFEINATE = /usr/bin/caffeinate
+CRON_FILTER   = $(CRON) -l | grep -v $(CAFFEINATE)
+CRON_REGISTER = echo '@reboot $(CAFFEINATE) -isd &!'
+
+caffeinate-on-boot:
+ifneq ($(USER), root)
+	$(warning $(USAGE))
+	$(error "caffeinate requires superuser permissions.")
+endif
+	( $(CRON_FILTER); $(CRON_REGISTER) ) | $(CRON) -
+
 ## On macos, `brew install` needs to be run from user account but other init steps
 ## need sudo, plus we want an identical install flow between mac & linux. Therefore,
 ## we make the user pass in their username and use sudo to, believe it or not, drop
 ## privilege level before installing.
-init-system-macos:
+macos-install-packages:
 ifndef USERNAME
 	$(warning $(USAGE))
 	$(error "init-system-macos requires username")
 endif
 	sudo -u $(USERNAME) brew install $(HOMEBREW_PACKAGES)
+
+init-system-macos: macos-install-packages caffeinate-on-boot
 
 ##
 ## Install dotfiles
