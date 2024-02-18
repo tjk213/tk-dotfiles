@@ -22,8 +22,8 @@
 ## Quickstart
 
 ``` bash
-% # Install packages via brew (mac) or apt (linux). May require sudo.
-% make install-deps
+% # Install packages & initialize other system-wide settings.
+% sudo make init-system USERNAME=tyler
 % # Install dotfiles, this will symlink everything from the home dir and therefore
 % # overwrite the user's existing files.
 % make install-dotfiles
