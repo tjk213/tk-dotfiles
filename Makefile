@@ -63,6 +63,16 @@ HOMEBREW_PACKAGES += coreutils  # Install GNU utils like `ls` as `gls`
 HOMEBREW_PACKAGES += util-linux # Install GNU column & more
 HOMEBREW_PACKAGES += sponge
 
+## Unautomated packages. These need to be installed manually, may need
+## settings adjusted, and needed to be added to "Login Items" in system
+## preferences to run on boot.
+##
+##  - MonitorControl: https://github.com/MonitorControl/MonitorControl
+##  - ScrollReverser: https://github.com/pilotmoon/Scroll-Reverser
+##
+## TODO: Add MonitorControl to HOMEBREW_PACKAGES since its available via brew.
+##
+
 ## Register caffeinate to start on boot via cronjob.
 ##
 ## For some reason I cannot find any combination of settings in system preferences
