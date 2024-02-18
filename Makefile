@@ -47,13 +47,22 @@ else ifeq ($(OS), Linux)
 init-system: init-system-debian
 endif
 
+## Debian init
+init-system-debian:
+	apt-get install moreutils  # Install sponge
+
+## On macos, `brew install` needs to be run from user account but other init steps
+## need sudo, plus we want an identical install flow between mac & linux. Therefore,
+## we make the user pass in their username and use sudo to, believe it or not, drop
+## privilege level before installing.
 init-system-macos:
+ifeq ($(USER), root)
+	$(warning "USAGE: sudo make init-system-macos USER=my-username")
+	$(error "init-system-macos requires username\n\n\n")
+endif
 	sudo -u $(USER) brew install coreutils     # Install GNU utils like `ls` as `gls`
 	sudo -u $(USER) brew install util-linux    # Install GNU column & more
 	sudo -u $(USER) brew install sponge
-
-init-system-debian:
-	apt-get install moreutils  # Install sponge
 
 ##
 ## Install dotfiles
