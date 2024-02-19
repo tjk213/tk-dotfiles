@@ -104,7 +104,8 @@ source $HOME/apps/zsh-fsh/fast-syntax-highlighting.plugin.zsh
 ## fallback to /usr/bin/time.
 ##
 
-TIMEFMT=$'\nCPU Utilization: %P\n\nCPU Time (user): %U\nCPU Time  (sys): %S\n\nTotal Time: %E\n'
+export REPORTTIME=20
+export TIMEFMT="${fg[magenta]}Time Elapsed: %*U user - %*S system - %*E real"
 
 # Run color-test from termctl.sh to kick off new shell.
 color-test
