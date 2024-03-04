@@ -59,6 +59,9 @@
 [pull]
 	ff = only
 
+[init]
+	defaultBranch = main
+
 [filter "lfs"]
 	required = true
 	clean = git-lfs clean -- %f
