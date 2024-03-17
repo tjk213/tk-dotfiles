@@ -120,6 +120,17 @@ else # Assuming linux
     alias paste='xclip -sel clip -o'
 fi
 
+##
+## Text manipulation
+##
+
+alias trim-whitespace='xargs echo'
+
+##
+## DNS
+
+alias dns-domain='resolvectl status | grep -i domain | cut -d: -f2 | trim-whitespace'
+alias dns-ip='resolvectl status | grep "Current DNS Server" | cut -d: -f2 | trim-whitespace'
 
 ## Overide TERM in emacs environment
 ##
