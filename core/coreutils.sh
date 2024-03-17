@@ -128,9 +128,16 @@ alias trim-whitespace='xargs echo'
 
 ##
 ## DNS
+##
 
-alias dns-domain='resolvectl status | grep -i domain | cut -d: -f2 | trim-whitespace'
-alias dns-ip='resolvectl status | grep "Current DNS Server" | cut -d: -f2 | trim-whitespace'
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # macOS
+    alias dns-domain='scutil --dns | grep domain | head -1 | cut -d: -f2 | trim-whitespace'
+    alias dns-ip='scutil --dns | grep nameserver | head -1 | cut -d: -f2 | trim-whitespace'
+else # Assuming linux
+    alias dns-domain='resolvectl status | grep -i domain | cut -d: -f2 | trim-whitespace'
+    alias dns-ip='resolvectl status | grep "Current DNS Server" | cut -d: -f2 | trim-whitespace'
+fi
 
 ## Overide TERM in emacs environment
 ##
