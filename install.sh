@@ -1,14 +1,14 @@
 #!/bin/zsh
 
 set -e
-THIS_DIR=$(dirname -- "${BASH_SOURCE[0]}")
+THIS_DIR="${0:A:h}"
 
 function init-system-debian()
 {
-    DEBIAN_PACKAGES="build-essential"
-    DEBIAN_PACKAGES="${DEBIAN_PACKAGES} clang llvm lld lldb ccache"
-    DEBIAN_PACKAGES="${DEBIAN_PACKAGES} tmux git emacs"
-    DEBIAN_PACKAGES="${DEBIAN_PACKAGES} moreutils" # Install sponge
+    DEBIAN_PACKAGES=(build-essential)
+    DEBIAN_PACKAGES+=(clang llvm lld lldb ccache)
+    DEBIAN_PACKAGES+=(tmux git emacs)
+    DEBIAN_PACKAGES+=(moreutils) # Install sponge
 
     sudo apt-get update
     sudo apt-get install ${DEBIAN_PACKAGES}
@@ -25,9 +25,9 @@ function init-system-macos()
     ##
     ## TODO: Add MonitorControl to HOMEBREW_PACKAGES since its available via brew.
 
-    HOMEBREW_PACKAGES="coreutils"                       # Install GNU utils like `ls` as `gls`
-    HOMEBREW_PACKAGES="${HOMEBREW_PACKAGES} util-linux" # Install GNU column & more
-    HOMEBREW_PACKAGES="${HOMEBREW_PACKAGES} sponge"
+    HOMEBREW_PACKAGES=(coreutils)    # Install GNU utils like `ls` as `gls`
+    HOMEBREW_PACKAGES+=(util-linux)  # Install GNU column & more
+    HOMEBREW_PACKAGES+=(sponge)
 
     brew install ${HOMEBREW_PACKAGES}
 
@@ -150,7 +150,7 @@ function print-success()
 ## Main
 ##
 
-#init-system
+init-system
 mk-user-dirs
 install-dotfiles
 print-success
