@@ -1,0 +1,156 @@
+#!/bin/zsh
+
+set -e
+THIS_DIR=$(dirname -- "${BASH_SOURCE[0]}")
+
+function init-system-debian()
+{
+    DEBIAN_PACKAGES="build-essential"
+    DEBIAN_PACKAGES="${DEBIAN_PACKAGES} clang llvm lld lldb ccache"
+    DEBIAN_PACKAGES="${DEBIAN_PACKAGES} tmux git emacs"
+    DEBIAN_PACKAGES="${DEBIAN_PACKAGES} moreutils" # Install sponge
+
+    sudo apt-get update
+    sudo apt-get install ${DEBIAN_PACKAGES}
+}
+
+function init-system-macos()
+{
+    ## Unautomated packages. These need to be installed manually, may need
+    ## settings adjusted, and needed to be added to "Login Items" in system
+    ## preferences to run on boot.
+    ##
+    ##  - MonitorControl: https://github.com/MonitorControl/MonitorControl
+    ##  - ScrollReverser: https://github.com/pilotmoon/Scroll-Reverser
+    ##
+    ## TODO: Add MonitorControl to HOMEBREW_PACKAGES since its available via brew.
+
+    HOMEBREW_PACKAGES="coreutils"                       # Install GNU utils like `ls` as `gls`
+    HOMEBREW_PACKAGES="${HOMEBREW_PACKAGES} util-linux" # Install GNU column & more
+    HOMEBREW_PACKAGES="${HOMEBREW_PACKAGES} sponge"
+
+    brew install ${HOMEBREW_PACKAGES}
+
+    ## Register caffeinate to start on boot via cronjob.
+    ##
+    ## For some reason I cannot find any combination of settings in system preferences
+    ## that let my screensaver play indefinitely (when on AC power). The only solution
+    ## I am able to find is running caffeinate in a terminal, so we register it to
+    ## start on boot.
+    ##
+    ## We use crontab's @reboot syntax to register the command on boot. According to
+    ## the internet, cron has been deprecated in favor of launchd / launchctl but, in
+    ## my experience launchd is tremendously complicated and cron is easy so we're
+    ## going with that. Despite the deprecation, it seems unlikely that apple will
+    ## actually remove support for cron (this would break posix compliance?) and even
+    ## if this were to occur homebrew or some other community would presumably provide
+    ## an alternative distribution.
+    ##
+    ## Although, imo, launchd is worse there are still some gotcha's with this cron
+    ## solution:
+    ##
+    ##  - There is no builtin way to append a job from the command line; only over-
+    ##    write. This means we have to build our own pipeline for appending.
+    ##
+    ##  - On some systems, @reboot may only work in the root's crontab. You can
+    ##    write an @reboot line as any user of course, but user-level @reboot
+    ##    directives may be ignored. This means that accidentally executing this
+    ##    target without sudo would fail silently, so we be sure to include sudo.
+    ##
+    ## References:
+    ##    - https://unix.stackexchange.com/questions/109804/crontabs-reboot-only-works-for-root
+    ##    - https://apple.stackexchange.com/questions/12819/why-is-cron-being-deprecated
+
+    CRON="sudo crontab"
+    CAFFEINATE="/usr/bin/caffeinate"
+    ( ${CRON} -l | grep -v ${CAFFEINATE}; echo "@reboot ${CAFFEINATE} -isd" )| ${CRON} -
+}
+
+function init-system()
+{
+    echo "Initializing system..."
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+	init-system-macos
+    else
+	init-system-debian
+    fi
+}
+
+function mk-user-dirs() {
+    echo "Initializing user directories..."
+    mkdir -p ${HOME}/apps ${HOME}/backups ${HOME}/venvs ${HOME}/workspace
+}
+
+function uninstall-top() {
+    grep -v 'source .*/tk.bashrc' ${HOME}/.bashrc | sponge ${HOME}/.bashrc
+    grep -v 'source .*/tk.zshrc'  ${HOME}/.zshrc  | sponge ${HOME}/.zshrc
+}
+
+function install-top()
+{
+    # Uninstall first, to make sure we don't create duplicate entries.
+    uninstall-top
+
+    # For top-level startup files, we install by editing home directory rather than
+    # symlinking it. This leaves a place for one-off configuration in the home dir.
+    echo "source ${THIS_DIR}/tk.bashrc" >> ${HOME}/.bashrc
+    echo "source ${THIS_DIR}/tk.zshrc"  >> ${HOME}/.zshrc
+}
+
+function install-dotfiles()
+{
+    echo "Initializing user configuration..."
+
+    HTOP_RC_PATH="${HOME}/.config/htop/htoprc"
+    NUM_HTOP_COLS=$(source ${THIS_DIR}/term/tmux.sh && htop-num-cpu-cols)
+    HTOP_CONFIG=htop-cpu${NUM_HTOP_COLS}
+
+    # Setup subdirs
+    mkdir -p $(dirname ${HTOP_RC_PATH})
+
+    # Link secondary dotfiles
+    ln -rfs ${THIS_DIR}/core/tk.inputrc        ${HOME}/.inputrc           # Core
+    ln -rfs ${THIS_DIR}/editor/tk.emacs        ${HOME}/.emacs             # Editor
+    ln -rfs ${THIS_DIR}/editor/tk.emacs.d      ${HOME}/.emacs.d
+    ln -rfs ${THIS_DIR}/editor/tk.editorconfig ${HOME}/.editorconfig
+    ln -rfs ${THIS_DIR}/stat/${HTOP_CONFIG}    ${HTOP_RC_PATH}            # Stat
+    ln -rfs ${THIS_DIR}/term/tk.tmux.conf      ${HOME}/.tmux.conf         # Term
+    ln -rfs ${THIS_DIR}/toolchain/tk.gdbinit   ${HOME}/.gdbinit           # Toolchain
+    ln -rfs ${THIS_DIR}/vcs/tk.gitignore       ${HOME}/.gitignore         # VCS
+    ln -rfs ${THIS_DIR}/vcs/tk.gitconfig       ${HOME}/.gitconfig
+    ln -rfs ${THIS_DIR}/vcs/modular.gitconfig  ${HOME}/.modular.gitconfig # Note dot
+
+    # Source top-level dotfiles
+    install-top
+}
+
+function uninstall-dotfiles()
+{
+    rm -f ${HOME}/.inputrc
+    rm -f ${HOME}/.emacs
+    rm -f ${HOME}/.emacs.d
+    rm -f ${HOME}/.editorconfig
+    rm -f ${HOME}/.tmux.conf
+    rm -f ${HOME}/.gdbinit
+    rm -f ${HOME}/.gitignore
+    rm -f ${HOME}/.gitconfig
+    rm -f ${HOME}/.modular.gitconfig # Note dot
+}
+
+function print-success()
+{
+    echo "Install complete."
+    echo ""
+    echo "System Status"
+    echo "============="
+    source ${THIS_DIR}/stat/stat.sh && system-stat
+}
+
+##
+## Main
+##
+
+#init-system
+mk-user-dirs
+install-dotfiles
+print-success
