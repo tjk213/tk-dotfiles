@@ -120,25 +120,6 @@ else # Assuming linux
     alias paste='xclip -sel clip -o'
 fi
 
-##
-## Text manipulation
-##
-
-alias trim-whitespace='xargs echo'
-
-##
-## DNS
-##
-
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    # macOS
-    alias dns-domain='scutil --dns | grep domain | head -1 | cut -d: -f2 | trim-whitespace'
-    alias dns-ip='scutil --dns | grep nameserver | head -1 | cut -d: -f2 | trim-whitespace'
-else # Assuming linux
-    alias dns-domain='resolvectl status | grep -i domain | cut -d: -f2 | trim-whitespace'
-    alias dns-ip='resolvectl status | grep "Current DNS Server" | cut -d: -f2 | trim-whitespace'
-fi
-
 ## Overide TERM in emacs environment
 ##
 ## On most modern emulators, TERM defaults to xterm-256colors. But within tmux,
