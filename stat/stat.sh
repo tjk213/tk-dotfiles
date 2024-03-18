@@ -1,4 +1,4 @@
-################################################################# -*- sh -*- #######
+####################################################################################
 ##               ,:                                                         ,:    ##
 ##             ,' |                                                       ,' |    ##
 ##            /   :                                                      /   :    ##
@@ -13,20 +13,33 @@
 ##     +                                                          +               ##
 ##    '                                                          '                ##
 ####################################################################################
-##            Copyright © 2022 Tyler J. Kenney. All rights reserved.              ##
+##            Copyright © 2024 Tyler J. Kenney. All rights reserved.              ##
 ####################################################################################
 ####################################################################################
 
-export TKD=$(dirname -- "${BASH_SOURCE[0]}")
+##
+## Text manipulation
+##
 
-source ${TKD}/core/coreutils.sh
-source ${TKD}/core/history.sh
-source ${TKD}/core/ps.sh
-source ${TKD}/stat/stat.sh
-source ${TKD}/term/termctl.sh
-source ${TKD}/term/tmux.sh
-source ${TKD}/modular/modular.sh
+alias trim-whitespace='xargs echo'
 
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-shopt -s checkwinsize
+##
+## DNS
+##
+
+## FIXME: Conditional aliases like this don't seem to work in bash.
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # macOS
+    alias dns-domain='scutil --dns | grep domain | head -1 | cut -d: -f2 | trim-whitespace'
+    alias dns-ip='scutil --dns | grep nameserver | head -1 | cut -d: -f2 | trim-whitespace'
+else # Assuming linux
+    alias dns-domain='resolvectl status | grep -i domain | cut -d: -f2 | trim-whitespace'
+    alias dns-ip='resolvectl status | grep "Current DNS Server" | cut -d: -f2 | trim-whitespace'
+fi
+
+function system-stat()
+{
+    echo "Architecture: $(uname -m)"
+    echo "Operating System: $(uname -o)"
+    echo "DNS: $(dns-domain) [$(dns-ip)]"
+}
