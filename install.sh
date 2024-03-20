@@ -103,7 +103,7 @@ function install-dotfiles()
 
     HTOP_RC_PATH="${HOME}/.config/htop/htoprc"
     NUM_HTOP_COLS=$(source ${THIS_DIR}/term/tmux.sh && htop-num-cpu-cols)
-    HTOP_CONFIG=htop-cpu${NUM_HTOP_COLS}
+    HTOP_CONFIG=htop-cpu${NUM_HTOP_COLS}.cfg
 
     # Setup subdirs
     mkdir -p $(dirname ${HTOP_RC_PATH})
