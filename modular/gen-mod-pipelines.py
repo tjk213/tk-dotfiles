@@ -27,10 +27,12 @@ from typing import List
 
 PIPELINES = [
     { 'name': 'tf_to_mo', 'start': 'tf-to-mo{ prune-assert-ops=true use-mo-ops=true}' },
-    { 'name': 'shape_inference', 'start': 'resolve-unknown-parameters' },
+    { 'name': 'monnx_lowering', 'start': 'monnx-upversioning' },
+    { 'name': 'shape_inference', 'start': 'resolve-unknown-parameters{resolveRMOOnly=true}' },
     { 'name': 'mo_to_mogg', 'start': 'mo.graph(infer-layouts)' },
     { 'name': 'mo_fusion',  'start': 'mo.graph(fuse-elementwise{dump-dot-graph=false})' },
-    { 'name': 'mogg_to_mgp','start': 'jit-compile-kernels{create-mogg-reproducers=false dump-stub=false  min-cpu-alignment=16 save-temp-prefix= split-binary-compile=false use-search=false}' }
+    { 'name': 'mogg_to_mgp','start': 'jit-compile-kernels{create-mogg-reproducers=false dump-stub=false  min-cpu-alignment=64 save-temp-prefix= split-binary-compile=false time-mogg-compile=false use-search=false}' }
+
 ]
 
 def print_header():
@@ -60,8 +62,8 @@ def print_header():
     print(f"## NOTICE: DO NOT EDIT!!")
     return
 
-def get_pipeline_passes(pipeline: str) -> List[str]:
-    cmd = f'echo "" | tf-opt --dump-pass-pipeline --{pipeline}'
+def get_pipeline_passes(tool: str, pipeline: str) -> List[str]:
+    cmd = f'echo "" | {tool} --dump-pass-pipeline --{pipeline}'
     output = subprocess.run(cmd, shell=True, capture_output=True)
     lines = output.stderr.decode('utf-8').split('\n')
 
@@ -86,8 +88,9 @@ def main():
     ##
 
     passes = []
-    passes += (get_pipeline_passes('tf-to-mo'))
-    passes += (get_pipeline_passes('mo-to-mgp'))
+    passes += (get_pipeline_passes('tf-opt', 'tf-to-mo'))
+    passes += (get_pipeline_passes('onnx-opt', 'monnx-lowering'))
+    passes += (get_pipeline_passes('tf-opt', 'mo-to-mgp'))
 
     ##
     ## Verify that every start pass occurs exactly once

@@ -99,6 +99,32 @@ function tf-to-mgp()
     echo "tf-to-mgp: ${root}.mgp.mlir"
 }
 
+function onnx-to-mgp()
+{
+    filepath=$1
+    filename=$(basename $filepath)
+    parts=(${(s/./)filename})
+    root=${parts[1]}
+
+    dump-op-graph $filepath 2>$root.onnx.dot
+    echo "onnx-to-mgp: ${root}.monnx.mlir"
+    onnx-opt -p $monnx_lowering $filepath > $root.mo.mlir
+    dump-op-graph $root.mo.mlir 2>$root.mo.dot
+    echo "onnx-to-mgp: ${root}.mo.mlir"
+    onnx-opt -p $shape_inference $root.mo.mlir > $root.mosi.mlir
+    dump-op-graph $root.mosi.mlir 2>$root.mosi.dot
+    echo "onnx-to-mgp: ${root}.mosi.mlir"
+    onnx-opt -p $mo_to_mogg $root.mosi.mlir > $root.mogg.mlir
+    dump-op-graph $root.mogg.mlir 2>$root.mogg.dot
+    echo "onnx-to-mgp: ${root}.mogg.mlir"
+    onnx-opt -p $mo_fusion $root.mogg.mlir > $root.mofu.mlir
+    dump-op-graph $root.mofu.mlir 2>$root.mofu.dot
+    echo "onnx-to-mgp: ${root}.mofu.mlir"
+    onnx-opt --allow-unregistered-dialect -p $mogg_to_mgp $root.mofu.mlir > $root.mgp.mlir
+    dump-op-graph $root.mgp.mlir 2>$root.mgp.dot
+    echo "onnx-to-mgp: ${root}.mgp.mlir"
+}
+
 
 if [[ -f  "${TKD}/modular/modular-local.sh" ]] ; then
     source ${TKD}/modular/modular-local.sh
