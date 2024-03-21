@@ -62,12 +62,23 @@ alias select-runs="jq '.traceEvents[] | select(.name==\"runModelOnce\")'"
 alias list-runs="sort-trace | select-runs | jq -c '{name, ts, dur}'"
 
 ##
+## MLIR Hacks
+##
+
+## There is one blank line in modular MLIR files between the end of the code and the start of
+## the weights. These aliases take advantage of this to extract the various components.
+alias mlir-extract-code="sed '/^$/,\$d'"
+alias mlir-extract-weights="sed '0, /^$/d'"
+
+##
 ## MLIR Pipelines
 ##
 
 if [[ -f  "${TKD}/modular/modular-pipelines.sh" ]] ; then
     source ${TKD}/modular/modular-pipelines.sh
 fi
+
+alias onnx-translate='onnx-translate --onnx-version-update --onnx-shape-inference --import-onnx'
 
 function dump-op-graph() {
     faux-opt --dump-op-graph --allow-unregistered-dialect $1 1>/dev/null
