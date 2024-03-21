@@ -148,8 +148,12 @@ alias emacs='TERM=xterm-256color emacs'
 ##
 
 export EDITOR=emacs
-export CC=clang
-export CXX=clang++
+## If we're on mac, then everything is Apple clang and we want to leave that alone.
+## Otherwise, prefer clang over gcc.
+if [[ "$OSTYPE" != "darwin"* ]]; then
+    export CC=clang
+    export CXX=clang++
+fi
 export CCACHE_CONFIGPATH="${TKD}/toolchain/ccache.conf"
 
 ##
