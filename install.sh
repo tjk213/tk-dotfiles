@@ -104,6 +104,10 @@ function install-dotfiles()
     mkdir -p $(dirname ${HTOP_RC_PATH})
 
     # Link secondary dotfiles
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+	alias ln='gln'
+    fi
+
     ln -rfs ${THIS_DIR}/core/tk.inputrc        ${HOME}/.inputrc           # Core
     ln -rfs ${THIS_DIR}/editor/tk.emacs        ${HOME}/.emacs             # Editor
     ln -rfs ${THIS_DIR}/editor/tk.emacs.d      ${HOME}/.emacs.d
