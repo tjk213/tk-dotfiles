@@ -31,12 +31,7 @@ function init-system-macos()
 
     brew install ${HOMEBREW_PACKAGES}
 
-    ## Register caffeinate to start on boot via cronjob.
-    ##
-    ## For some reason I cannot find any combination of settings in system preferences
-    ## that let my screensaver play indefinitely (when on AC power). The only solution
-    ## I am able to find is running caffeinate in a terminal, so we register it to
-    ## start on boot.
+    ## Register caffeine-manager to start on boot via cronjob.
     ##
     ## We use crontab's @reboot syntax to register the command on boot. According to
     ## the internet, cron has been deprecated in favor of launchd / launchctl but, in
@@ -54,16 +49,16 @@ function init-system-macos()
     ##
     ##  - On some systems, @reboot may only work in the root's crontab. You can
     ##    write an @reboot line as any user of course, but user-level @reboot
-    ##    directives may be ignored. This means that accidentally executing this
-    ##    target without sudo would fail silently, so we be sure to include sudo.
+    ##    directives may be ignored. For now, user-cron seems to work on my macbook
+    ##    so we're going with that.
     ##
     ## References:
     ##    - https://unix.stackexchange.com/questions/109804/crontabs-reboot-only-works-for-root
     ##    - https://apple.stackexchange.com/questions/12819/why-is-cron-being-deprecated
 
-    CRON="sudo crontab"
-    CAFFEINATE="/usr/bin/caffeinate"
-    ( ${CRON} -l | grep -v ${CAFFEINATE}; echo "@reboot ${CAFFEINATE} -isd" )| ${CRON} -
+    CRON="/usr/bin/crontab"
+    CM="$(realpath ${THIS_DIR}/macos/caffeine-manager.sh)"
+    ( ${CRON} -l | grep -v ${CM}; echo "@reboot ${CM}" )| ${CRON} -
 }
 
 function init-system()
