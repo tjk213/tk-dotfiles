@@ -132,5 +132,6 @@ function tmux-nv()
     tmux attach -t $SESSION
 }
 
-alias tmd='tmux-default'
 alias tmn='tmux-nv'
+alias tmd='tmux-default'
+alias tmk='tmux kill-server'
