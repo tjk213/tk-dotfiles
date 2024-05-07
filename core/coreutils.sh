@@ -71,7 +71,7 @@ alias backup="${TKD}/core/backup.py"
 ##
 
 alias gs='git status'
-alias gl='git log-pretty -36'
+alias gl='git log-pretty'
 alias gd='git diff'
 alias ga='git add'
 alias gc='git commit-checked'
