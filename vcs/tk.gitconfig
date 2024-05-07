@@ -55,6 +55,10 @@
 	path = .modular.gitconfig
 
 [core]
+	# Set quotepath = false. This fixes rendering of emojis in git status, but may break
+	# other stuff such as paths with whitespace or other funny symbols.
+	# https://git-scm.com/docs/git-config#Documentation/git-config.txt-corequotePath
+	quotepath = false
 	excludesFile = ~/.gitignore
 [pull]
 	ff = only
