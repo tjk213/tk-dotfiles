@@ -77,6 +77,9 @@ alias ga='git add'
 alias gc='git commit-checked'
 alias gb='git branch-pretty'
 
+alias gpull='git pull origin $GB'
+alias gpush='git push origin $GB'
+
 # git print modified files (by position)
 alias gp1="git ls-files --modified | head -1 | tail -1"
 alias gp2="git ls-files --modified | head -2 | tail -1"
