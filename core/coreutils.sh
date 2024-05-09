@@ -81,11 +81,9 @@ alias gb='git branch-pretty'
 alias gclone='git clone --single-branch'
 
 # git pull updates the current branch. If instead you want to switch to a different branch
-# and update it from the remote, use `gfetch`. This works whether or not the local repo has
-# ever heard of the new branch.
-function gfetch() {
-    git fetch origin $1 && git checkout $1 && git merge origin/$1
-}
+# and update it from the remote, use `gfetch <branch>`. This works whether or not the local
+# repo has ever heard of the new branch.
+function gfetch() { git fetch origin $1 && git checkout $1 && git merge origin/$1 }
 
 # git push/pull update all remote tracking branches by default. This is silly, so we use
 # rev-parse to find the current branch name and update only the active branch.
