@@ -85,6 +85,9 @@ alias gclone='git clone --single-branch'
 # repo has ever heard of the new branch.
 function gfetch() { git fetch origin $1 && git checkout $1 && git merge origin/$1 }
 
+# If you want to switch to a different branch without fetching any updates, use `gswitch`.
+alias gswitch='git switch'
+
 # git push/pull update all remote tracking branches by default. This is silly, so we use
 # rev-parse to find the current branch name and update only the active branch.
 alias gpull='git pull origin $(git rev-parse --abbrev-ref HEAD)'
