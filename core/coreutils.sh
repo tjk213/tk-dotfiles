@@ -83,7 +83,7 @@ alias gclone='git clone --single-branch'
 # git pull updates the current branch. If instead you want to switch to a different branch
 # and update it from the remote, use `gfetch <branch>`. This works whether or not the local
 # repo has ever heard of the new branch.
-function gfetch() { git fetch origin $1 && git checkout $1 && git merge origin/$1 }
+function gfetch() { git fetch origin $1 && git checkout $1 && git merge origin/$1; }
 
 # If you want to switch to a different branch without fetching any updates, use `gswitch`.
 alias gswitch='git switch'
