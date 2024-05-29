@@ -26,6 +26,7 @@ export I=$HOME/workspace/infra
 export L=$HOME/workspace/llama-benchmarking
 export R=$HOME/workspace/roblox-benchmarking
 export F=$HOME/workspace/ferrari-benchmarking
+export G=$HOME/workspace/gpu-benchmarking
 
 ## Early-return if the monorepo doesn't exist; presumably we're not on a modular
 ## system.
