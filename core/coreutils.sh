@@ -93,6 +93,10 @@ alias gswitch='git switch'
 alias gpull='git pull origin $(git rev-parse --abbrev-ref HEAD)'
 alias gpush='git push origin $(git rev-parse --abbrev-ref HEAD)'
 
+# git stash push/pop
+alias gstash='git stash'
+alias gpop='git stash pop'
+
 # git print modified files (by position)
 alias gp1="git ls-files --modified | head -1 | tail -1"
 alias gp2="git ls-files --modified | head -2 | tail -1"
