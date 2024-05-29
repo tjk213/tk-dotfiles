@@ -90,8 +90,39 @@ alias gswitch='git switch'
 
 # git push/pull update all remote tracking branches by default. This is silly, so we use
 # rev-parse to find the current branch name and update only the active branch.
-alias gpull='git pull origin $(git rev-parse --abbrev-ref HEAD)'
-alias gpush='git push origin $(git rev-parse --abbrev-ref HEAD)'
+alias gpull-head='git pull origin $(git rev-parse --abbrev-ref HEAD)'
+alias gpush-head='git push origin $(git rev-parse --abbrev-ref HEAD)'
+
+# gpull [branch]
+# Switch to <branch> if one is given and pull update from origin.
+function gpull()
+{
+    if [[ $# -eq 0 ]]; then
+	gpull-head
+    elif [[ $# -eq 1 ]]; then
+	gfetch $1
+    else
+	echo 1>&2 "ERROR: Unexpected argument(s)"
+	echo 1>&2 "Usage: gpull [branch]"
+	exit -1
+    fi
+}
+
+# gpush [branch]
+# If <branch> is given, then push it to origin.
+# Otherwise, push HEAD (and only HEAD) to origin.
+function gpush()
+{
+    if [[ $# -eq 0 ]]; then
+	gpush-head
+    elif [[ $# -eq 1 ]]; then
+	git push origin $1:$1
+    else
+	echo 1>&2 "ERROR: Unexpected argument(s)"
+	echo 1>&2 "Usage: gpush [branch]"
+	exit -1
+    fi
+}
 
 # git stash push/pop
 alias gstash='git stash'
