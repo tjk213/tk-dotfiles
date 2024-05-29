@@ -153,6 +153,28 @@ alias gat='ga1'
 alias is-git-repo='git rev-parse --is-inside-work-tree &>/dev/null'
 alias get-git-branch='is-git-repo && git branch --show-current'
 
+# gbackup [branch]
+# Create a branch called B-backup-X where B is either <branch> or the current
+# branch, and X is the lowest positive integer that doesn't already exist.
+function gbackup()
+{
+    if [[ $# -eq 0 ]]; then
+	branch=$(git rev-parse --abbrev-ref HEAD)
+    elif [[ $# -eq 1 ]]; then
+	branch=$1
+    else
+	echo 1>&2 "ERROR: Unexpected argument(s)"
+	echo 1>&2 "Usage: gbackup [branch]"
+	exit -1
+    fi
+
+    i=1
+    while git show-ref --quiet refs/heads/${branch}-backup-${i}; do
+	i=$((i+1))
+    done
+    git branch ${branch}-backup-${i}
+}
+
 ##
 ## Copy/paste aliases
 ## Usage:
