@@ -131,6 +131,17 @@ alias gpop='git stash pop'
 # git submodule
 alias gsub='git submodule'
 
+# git log without viewer
+alias gl1='gl -1'
+alias gl2='gl -2'
+alias gl3='gl -3'
+alias gl4='gl -4'
+alias gl5='gl -5'
+alias gl6='gl -6'
+alias gl7='gl -7'
+alias gl8='gl -8'
+alias gl9='gl -9'
+
 # git print modified files (by position)
 alias gp1="git ls-files --modified | head -1 | tail -1"
 alias gp2="git ls-files --modified | head -2 | tail -1"
