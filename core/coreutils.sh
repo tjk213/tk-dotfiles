@@ -128,6 +128,9 @@ function gpush()
 alias gstash='git stash'
 alias gpop='git stash pop'
 
+# git submodule
+alias gsub='git submodule'
+
 # git print modified files (by position)
 alias gp1="git ls-files --modified | head -1 | tail -1"
 alias gp2="git ls-files --modified | head -2 | tail -1"
