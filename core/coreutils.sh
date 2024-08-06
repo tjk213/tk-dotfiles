@@ -147,18 +147,33 @@ alias gp1="git ls-files --modified | head -1 | tail -1"
 alias gp2="git ls-files --modified | head -2 | tail -1"
 alias gp3="git ls-files --modified | head -3 | tail -1"
 alias gp4="git ls-files --modified | head -4 | tail -1"
+alias gp5="git ls-files --modified | head -5 | tail -1"
+alias gp6="git ls-files --modified | head -6 | tail -1"
+alias gp7="git ls-files --modified | head -7 | tail -1"
+alias gp8="git ls-files --modified | head -8 | tail -1"
+alias gp9="git ls-files --modified | head -9 | tail -1"
 
 # git diff files by position
 alias gd1='git diff $(gp1)'
 alias gd2='git diff $(gp2)'
 alias gd3='git diff $(gp3)'
 alias gd4='git diff $(gp4)'
+alias gd5='git diff $(gp5)'
+alias gd6='git diff $(gp6)'
+alias gd7='git diff $(gp7)'
+alias gd8='git diff $(gp8)'
+alias gd9='git diff $(gp9)'
 
 # git add files by position
 alias ga1='git add $(gp1)'
 alias ga2='git add $(gp2)'
 alias ga3='git add $(gp3)'
 alias ga4='git add $(gp4)'
+alias ga5='git add $(gp5)'
+alias ga6='git add $(gp6)'
+alias ga7='git add $(gp7)'
+alias ga8='git add $(gp8)'
+alias ga9='git add $(gp9)'
 
 # git diff/add top modified file
 alias gdt='gd1'
