@@ -29,6 +29,7 @@ function init-system-macos()
     HOMEBREW_PACKAGES=(coreutils)    # Install GNU utils like `ls` as `gls`
     HOMEBREW_PACKAGES+=(util-linux)  # Install GNU column & more
     HOMEBREW_PACKAGES+=(sponge emacs tmux htop)
+    HOMEBREW_PACKAGES+=(bitwarden)
 
     brew install ${HOMEBREW_PACKAGES}
 
