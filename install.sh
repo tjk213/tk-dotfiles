@@ -6,7 +6,7 @@ THIS_DIR="${0:A:h}"
 function init-system-debian()
 {
     DEBIAN_PACKAGES=(build-essential xclip)
-    DEBIAN_PACKAGES+=(clang llvm lld lldb ccache)
+    DEBIAN_PACKAGES+=(clang llvm lld lldb ccache cmake)
     DEBIAN_PACKAGES+=(tmux git emacs)
     DEBIAN_PACKAGES+=(moreutils) # Install sponge
     DEBIAN_PACKAGES+=(htop nvtop)
