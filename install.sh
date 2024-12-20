@@ -9,7 +9,7 @@ function init-system-debian()
     DEBIAN_PACKAGES+=(clang llvm lld lldb ccache)
     DEBIAN_PACKAGES+=(tmux git emacs)
     DEBIAN_PACKAGES+=(moreutils) # Install sponge
-    DEBIAN_PACKAGES+=(nvtop)
+    DEBIAN_PACKAGES+=(htop nvtop)
 
     sudo apt-get update
     sudo apt-get install ${DEBIAN_PACKAGES}
