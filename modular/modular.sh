@@ -151,3 +151,11 @@ export CLOC_MOJO='--force-lang=mojo,mojo'
 export CLOC_MLIR='--force-lang="LLVM IR,mlir"'
 export CLOC_LITCFG='--force-lang=Python,in' # lit.cfg.py.in --> Python
 alias cloc-modular="cloc ${CLOC_MOJO} ${CLOC_MLIR} ${CLOC_LITCFG}"
+
+##
+## VLLM
+##
+
+# Disable VLLM telemetry
+export DO_NOT_TRACK=1
+export VLLM_NO_USAGE_STATS=1
