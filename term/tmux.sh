@@ -26,8 +26,10 @@ function htop-num-cpu-cols()
 	num_cpu_cols=2
     elif [[ $num_cpus -lt 64 ]]; then
 	num_cpu_cols=4
-    else
+    elif [[ $num_cpus -lt 128 ]]; then
 	num_cpu_cols=8
+    else
+	num_cpu_cols=16
     fi
     echo ${num_cpu_cols}
 }
