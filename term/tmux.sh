@@ -96,7 +96,12 @@ function tmux-config-gpu()
     # which shrinks the GPU pane down to desired size.
     tmux last-pane
     DIVIDERS=2
-    GPU_PANE_SIZE=3
+    NUM_GPUS=$(nvidia-smi --list-gpus | wc -l)
+    # NB: We assume here that the screen is wide enough that nvtop will render two
+    # GPUs per line, but not so wide that it does 4. We should probably add some
+    # smarts here.
+    NUM_GPU_PAIRS=$((($NUM_GPUS+1)/2))
+    GPU_PANE_SIZE=$((3*$NUM_GPU_PAIRS))
     CPU_PANE_SIZE=$(htop-pane-height)
     PRIMARY_PANE_SIZE=$(($LINES-$CPU_PANE_SIZE-$GPU_PANE_SIZE-$DIVIDERS))
     tmux resize-pane -y $PRIMARY_PANE_SIZE
