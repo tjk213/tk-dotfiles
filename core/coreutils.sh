@@ -262,6 +262,7 @@ export CCACHE_CONFIGPATH="${TKD}/toolchain/ccache.conf"
 ## Directory Shortcuts
 ##
 
+export H=$HOME
 export A=$HOME/apps
 export B=$HOME/backups
 export D=$HOME/Downloads
