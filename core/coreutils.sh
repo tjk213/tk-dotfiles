@@ -62,7 +62,7 @@ fi
 alias ll='ls -lhBv --group-directories-first --color=auto'
 
 alias e='emacs'
-alias python='python3'
+alias py3='python3'
 alias grep='grep --color=auto'
 alias backup="${TKD}/core/backup.py"
 
