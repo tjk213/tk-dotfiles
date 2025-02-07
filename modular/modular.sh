@@ -39,7 +39,6 @@ fi
 ##
 
 DISABLE_CHDIR=1 source $M/utils/start-modular.sh
-unset -f model
 alias install-python-deps='install_python_deps'
 alias install-dev-deps='install_dev_deps'
 
