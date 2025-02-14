@@ -20,7 +20,40 @@
 # Return the # of columns of CPU meters we want in htop
 function htop-num-cpu-cols()
 {
-    local num_cpus=$(nproc)
+    # Note: nproc --all includes all hardware cpus in the system, whether they are
+    # online, offline, or online-but-disabled-through-cgroups.
+    # nproc without --all returns only CPUs available for actual processing, which
+    # means they are not only online but also have not been disabled through cgroups.
+    #
+    # This distinction has become relevant in Modular coder VMs because under the hood
+    # they are docker containers that have been launched with --cpuset-cpus to reduce
+    # core counts available to each user.
+    #
+    # The full set of hardware cores can be seen through `lscpu`.
+    # The list of online cores is available via sysfs: /sys/devices/system/cpu/online
+    # The list of enabled cores can be seen as a mask with: `taskset -p $$`
+    #
+    # Unfortunately, htop does not check the cgroups affinity mask when choosing how
+    # many cores to display. Instead it simply displays all online cpus, which means
+    # we need to size the window for all online cpus. Use of nproc --all sizes the
+    # window for all cpus whether online or offline, but in practice I don't have any
+    # systems with a significant number of offline cpus so that is ok for now.
+    #
+    # In order to have htop ignore disabled cores, I think there are two solutions:
+    #
+    #  - Update htop to check cgroup affinity mask
+    #  - Update container env such that sysfs reflects only enabled cores
+    #
+    # The first solution would be an htop patch; perhaps we should file an issue.
+    # It looks like LXCFS could be installed in order to implement the second
+    # solution: https://github.com/lxc/lxcfs
+    #
+    # There is an RFD from 2021 for the linux kernel to build a native solution, but
+    # it looks like it went nowhere:
+    #
+    # https://lore.kernel.org/lkml/ac76aada-f94d-d596-9b3c-1dca5a9914d0@linux.ibm.com
+    #
+    local num_cpus=$(nproc --all)
 
     if [[ $num_cpus -lt 16 ]]; then
 	num_cpu_cols=2
@@ -39,7 +72,7 @@ function htop-num-cpu-cols()
 function htop-pane-height()
 {
     local num_header_rows=4 # Assuming 3 rows of system info (plus blank).
-    local num_cpus=$(nproc)
+    local num_cpus=$(nproc --all) # See htop-num-cpu-cols for explanation of --all.
     local num_cpu_cols=$(htop-num-cpu-cols)
     # FIXME: This will break if cols doesn't divide num_cpus evenly
     local num_cpu_rows=$(($num_cpus/$num_cpu_cols))
