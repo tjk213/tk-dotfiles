@@ -118,6 +118,19 @@ function tmux-config-cpu()
     tmux last-pane
 }
 
+function get-num-gpus()
+{
+    if [[ -x "$(command -v amd-smi)" ]]; then
+	# amd-smi includes a header row, so subtract 1
+	# NB: current version seems to also include a blank line at the end, but only
+	# in interactive shells. so we can ignore that here.
+	NUM_GPUS=$(($(amd-smi --list --csv | wc -l)-1))
+    else
+	NUM_GPUS=$(nvidia-smi --list-gpus | wc -l)
+    fi
+    echo ${NUM_GPUS}
+}
+
 function tmux-config-gpu()
 {
     tmux split-window -v
@@ -129,7 +142,7 @@ function tmux-config-gpu()
     # which shrinks the GPU pane down to desired size.
     tmux last-pane
     DIVIDERS=2
-    NUM_GPUS=$(nvidia-smi --list-gpus | wc -l)
+    NUM_GPUS=$(get-num-gpus)
     # NB: We assume here that the screen is wide enough that nvtop will render two
     # GPUs per line, but not so wide that it does 4. We should probably add some
     # smarts here.
