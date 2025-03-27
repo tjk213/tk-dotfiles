@@ -158,3 +158,9 @@ alias cloc-modular="cloc ${CLOC_MOJO} ${CLOC_MLIR} ${CLOC_LITCFG}"
 # Disable VLLM telemetry
 export DO_NOT_TRACK=1
 export VLLM_NO_USAGE_STATS=1
+
+##
+## AMD
+##
+
+export ROCM_PATH=/opt/rocm
