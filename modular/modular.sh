@@ -163,4 +163,6 @@ export VLLM_NO_USAGE_STATS=1
 ## AMD
 ##
 
-export ROCM_PATH=/opt/rocm
+if [[ -d "/opt/rocm" ]] ; then
+    export ROCM_PATH=/opt/rocm
+fi
