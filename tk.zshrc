@@ -91,12 +91,11 @@ compdef tab-complete-equals -first-
 ##     https://github.com/tjk213/zsh-fsh
 ##
 ##   The FSH readme suggests a few different zsh plugins that could potentially
-##   automate installation, but I'm using the manual process for now. This means
-##   the source command below will fail on a new machine if we haven't yet cloned
-##   the fork.
+##   automate installation, but I'm using git submodule for now. So make sure to
+##   clone this repo with submodules included!
 ##
 
-source $HOME/apps/zsh-fsh/fast-syntax-highlighting.plugin.zsh
+source $TKD/third-party/zsh-fsh/fast-syntax-highlighting.plugin.zsh
 
 ##
 ## Format time builtin.
