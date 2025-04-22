@@ -73,6 +73,13 @@ function init-system()
     fi
 }
 
+function init-python()
+{
+    echo "Initializing python virtual environment..."
+    SKIP_VENV_ACTIVATION=1 source ${THIS_DIR}/core/coreutils.sh
+    python${DEFAULT_PYTHON_VERSION} -mvenv $DEFAULT_VENV
+}
+
 function mk-user-dirs() {
     echo "Initializing user directories..."
     mkdir -p ${HOME}/apps ${HOME}/backups ${HOME}/venvs ${HOME}/workspace
@@ -154,4 +161,5 @@ function print-success()
 init-system
 mk-user-dirs
 install-dotfiles
+init-python
 print-success
