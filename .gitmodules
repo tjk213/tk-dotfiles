@@ -1,0 +1,3 @@
+[submodule "third-party/zsh-fsh"]
+	path = third-party/zsh-fsh
+	url = git@github.com:tjk213/zsh-fsh.git
