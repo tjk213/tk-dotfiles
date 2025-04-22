@@ -12,7 +12,7 @@ function init-system-debian()
     DEBIAN_PACKAGES+=(htop nvtop)
 
     sudo apt-get update
-    sudo apt-get install ${DEBIAN_PACKAGES}
+    sudo apt-get install -y ${DEBIAN_PACKAGES}
 }
 
 function init-system-macos()
