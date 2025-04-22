@@ -266,6 +266,7 @@ export H=$HOME
 export A=$HOME/apps
 export B=$HOME/backups
 export D=$HOME/Downloads
+export V=$HOME/venvs
 export W=$HOME/workspace
 
 ##
@@ -291,12 +292,14 @@ if [[ -z $DEFAULT_PYTHON_VERSION ]] ; then
     export DEFAULT_PYTHON_VERSION=3.10
 fi
 
+export DEFAULT_VENV=$V/py-${DEFAULT_PYTHON_VERSION}
+
 # Activate python venv if we don't already have one.
 # If this environ variable proves unreliable, we could also use:
 # python -c 'import sys; print ("1" if hasattr(sys, "real_prefix") else "0")'
 #
 # See: stackoverflow.com/questions/15454174/
 #     how-can-a-shell-function-know-if-it-is-running-within-a-virtualenv
-if [[ -z "$VIRTUAL_ENV" ]] ; then
-    source $HOME/venvs/py-${DEFAULT_PYTHON_VERSION}/bin/activate
+if [[ ! -v SKIP_VENV_ACTIVATION ]] && [[ -z "$VIRTUAL_ENV" ]]; then
+    source ${DEFAULT_VENV}/bin/activate
 fi
