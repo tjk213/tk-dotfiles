@@ -22,7 +22,7 @@
 ##
 
 export M=$HOME/workspace/modular
-export I=$HOME/workspace/infra
+export I=$HOME/workspace/external-inworld
 export L=$HOME/workspace/llama-benchmarking
 export R=$HOME/workspace/roblox-benchmarking
 export F=$HOME/workspace/ferrari-benchmarking
