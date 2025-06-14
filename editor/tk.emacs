@@ -33,18 +33,19 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-(when (not (package-installed-p 'use-package))
-  (package-install 'use-package))
-
-(require 'use-package-ensure)
-(setq use-package-always-ensure t)
-
-(use-package editorconfig
-  :ensure t
-  :config
-  (editorconfig-mode 1))
-
-(use-package markdown-mode)
+;; FIXME: use-package doesn't work on coder
+;;(when (not (package-installed-p 'use-package))
+;;  (package-install 'use-package))
+;;
+;;(require 'use-package-ensure)
+;;(setq use-package-always-ensure t)
+;;
+;;(use-package editorconfig
+;;  :ensure t
+;;  :config
+;;  (editorconfig-mode 1))
+;;
+;;(use-package markdown-mode)
 
 (add-to-list 'load-path (concat (file-name-directory (file-truename load-file-name)) "tk.emacs.d/modes"))
 
@@ -77,9 +78,10 @@
 ;;(set-face-background 'default "undefined")
 
 
-(use-package beacon
-  :config
-  (beacon-mode 1))
+;; FIXME: use-package doesn't work on coder
+;;(use-package beacon
+;;  :config
+;;  (beacon-mode 1))
 
 ;;
 ;; C/C++ Config
