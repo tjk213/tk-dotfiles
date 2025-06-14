@@ -1,3 +1,6 @@
 [submodule "third-party/zsh-fsh"]
 	path = third-party/zsh-fsh
 	url = git@github.com:tjk213/zsh-fsh.git
+[submodule "third-party/editorconfig-emacs"]
+	path = third-party/editorconfig-emacs
+	url = git@github.com:editorconfig/editorconfig-emacs.git
