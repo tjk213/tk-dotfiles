@@ -47,6 +47,11 @@
 ;;
 ;;(use-package markdown-mode)
 
+;; load editorconfig from submodule
+(add-to-list 'load-path (concat (file-name-directory (file-truename load-file-name)) "../third-party/editorconfig-emacs"))
+(require 'editorconfig)
+(editorconfig-mode 1)
+
 (add-to-list 'load-path (concat (file-name-directory (file-truename load-file-name)) "tk.emacs.d/modes"))
 
 (load "tablegen-mode")
