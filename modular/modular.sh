@@ -28,6 +28,8 @@ export R=$HOME/workspace/roblox-benchmarking
 export F=$HOME/workspace/ferrari-benchmarking
 export G=$HOME/workspace/gpu-benchmarking
 
+export IM=$HOME/workspace/inworld-modular
+
 ## Early-return if the monorepo doesn't exist; presumably we're not on a modular
 ## system.
 if [[ ! -d "$M" ]]; then
