@@ -124,7 +124,7 @@ function get-num-gpus()
 	# amd-smi includes a header row, so subtract 1
 	# NB: current version seems to also include a blank line at the end, but only
 	# in interactive shells. so we can ignore that here.
-	NUM_GPUS=$(($(amd-smi --list --csv | wc -l)-1))
+	NUM_GPUS=$(($(rocm-smi | wc -l)-9))
     else
 	NUM_GPUS=$(nvidia-smi --list-gpus | wc -l)
     fi
