@@ -54,12 +54,22 @@ fi
 
 ## ll - list directory
 ##
+## FreeBSD:
+##   -G: Enable colors
+##
+## GNU:
+##   -B: hide editor backups like .bashrc~ (GNU ls only)
+##
+## All:
 ##   -l: list details
 ##   -h: human-readable
-##   -B: hide editor backups like .bashrc~ (GNU ls only)
 ##   -v: natural sort (handles things like version numbers)
 ##
-alias ll='ls -lhBv --group-directories-first --color=auto'
+if [[ "$OSTYPE" == "freebsd"* ]]; then
+    alias ll='ls -Glhv'
+else
+    alias ll='ls -lhBv --group-directories-first --color=auto'
+fi
 
 alias e='emacs'
 alias py3='python3'
