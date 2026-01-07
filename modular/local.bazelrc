@@ -1,1 +1,3 @@
+build --config=release
 build --config=disable-mypy
+
