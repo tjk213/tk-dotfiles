@@ -13,6 +13,9 @@ function init-system-debian()
 
     sudo apt-get update
     sudo apt-get install -y ${DEBIAN_PACKAGES}
+
+    # Set emacs-style nav for all GTK applications
+    gsettings set org.gnome.desktop.interface gtk-key-theme "Emacs"
 }
 
 function init-system-macos()
