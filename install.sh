@@ -109,8 +109,13 @@ function install-dotfiles()
     NUM_HTOP_COLS=$(source ${THIS_DIR}/term/tmux.sh && htop-num-cpu-cols)
     HTOP_CONFIG=htop-cpu${NUM_HTOP_COLS}.cfg
 
+    GTK_3_0_INI_PATH="${HOME}/.config/gtk-3.0/settings.ini"
+    GTK_4_0_INI_PATH="${HOME}/.config/gtk-4.0/settings.ini"
+
     # Setup subdirs
     mkdir -p $(dirname ${HTOP_RC_PATH})
+    mkdir -p $(dirname ${GTK_3_0_INI_PATH})
+    mkdir -p $(dirname ${GTK_4_0_INI_PATH})
 
     # Link secondary dotfiles
     if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -127,6 +132,11 @@ function install-dotfiles()
     ln -rfs ${THIS_DIR}/vcs/tk.gitignore       ${HOME}/.gitignore         # VCS
     ln -rfs ${THIS_DIR}/vcs/tk.gitconfig       ${HOME}/.gitconfig
     ln -rfs ${THIS_DIR}/vcs/modular.gitconfig  ${HOME}/.modular.gitconfig # Note dot
+
+    if [[ "$OSTYPE" == "linux"* ]]; then
+	ln -rfs ${THIS_DIR}/linux/gtk-settings.ini ${GTK_3_0_INI_PATH}
+	ln -rfs ${THIS_DIR}/linux/gtk-settings.ini ${GTK_4_0_INI_PATH}
+    fi
 
     # Source top-level dotfiles
     install-top
