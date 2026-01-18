@@ -137,6 +137,16 @@ function get-num-gpus()
 
 function tmux-config-gpu()
 {
+    # Get height of original pane before we split.
+    total_height=$(tmux display-message -p '#{pane_height}')
+    NUM_GPUS=$(get-num-gpus)
+    # NB: We assume here that the screen is wide enough that nvtop will render two
+    # GPUs per line, but not so wide that it does 4. We should probably add some
+    # smarts here.
+    NUM_GPU_PAIRS=$((($NUM_GPUS+1)/2))
+    GPU_PANE_SIZE=$((3*$NUM_GPU_PAIRS))
+
+    # Split and launch nvtop
     tmux split-window -v
     tmux send-keys 'nvtop' C-m
     # We would prefer to resize this pane directly with -y 3, but this unfortunately
@@ -145,16 +155,7 @@ function tmux-config-gpu()
     # aware of it. Instead, we switch back to the primary pane and resize it bigger,
     # which shrinks the GPU pane down to desired size.
     tmux last-pane
-    DIVIDERS=2
-    NUM_GPUS=$(get-num-gpus)
-    # NB: We assume here that the screen is wide enough that nvtop will render two
-    # GPUs per line, but not so wide that it does 4. We should probably add some
-    # smarts here.
-    NUM_GPU_PAIRS=$((($NUM_GPUS+1)/2))
-    GPU_PANE_SIZE=$((3*$NUM_GPU_PAIRS))
-    CPU_PANE_SIZE=$(htop-pane-height)
-    PRIMARY_PANE_SIZE=$(($LINES-$CPU_PANE_SIZE-$GPU_PANE_SIZE-$DIVIDERS))
-    tmux resize-pane -y $PRIMARY_PANE_SIZE
+    tmux resize-pane -y $(($total_height-$GPU_PANE_SIZE-1))
 }
 
 # Attach to session "default" if it exists.
