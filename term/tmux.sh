@@ -105,6 +105,23 @@ function tmux-config-cpu()
     tmux resize-pane -y $(($total_height-$(htop-pane-height)-1))
 }
 
+function tmux-config-chipchat()
+{
+    # Get height of original pane before we split.
+    total_height=$(tmux display-message -p '#{pane_height}')
+    chipchat_height=9 # Assume two rows for now
+
+    # Start ChipChat pane
+    tmux split-window -v
+    tmux send-keys 'chipchat -f' C-m
+
+    # Flip to upper pane and resize.
+    # It would be nice if we could just resize the cpu pane directly, but that
+    # adds the newly created space to the pane below rather than the pane above.
+    tmux last-pane
+    tmux resize-pane -y $(($total_height-$chipchat_height-1))
+}
+
 function get-num-gpus()
 {
     if [[ -x "$(command -v amd-smi)" ]]; then
