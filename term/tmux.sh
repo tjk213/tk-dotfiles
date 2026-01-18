@@ -91,11 +91,18 @@ function tmux-new-session()
 
 function tmux-config-cpu()
 {
+    # Get height of original pane before we split.
+    total_height=$(tmux display-message -p '#{pane_height}')
+
     # Start htop pane
     tmux split-window -v
     tmux send-keys 'htop' C-m
-    tmux resize-pane -y $(htop-pane-height)
+
+    # Flip to upper pane and resize.
+    # It would be nice if we could just resize the cpu pane directly, but that
+    # adds the newly created space to the pane below rather than the pane above.
     tmux last-pane
+    tmux resize-pane -y $(($total_height-$(htop-pane-height)-1))
 }
 
 function get-num-gpus()
