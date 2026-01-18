@@ -81,6 +81,8 @@ function init-python()
     echo "Initializing python virtual environment..."
     SKIP_VENV_ACTIVATION=1 source ${THIS_DIR}/core/coreutils.sh
     python${DEFAULT_PYTHON_VERSION} -mvenv $DEFAULT_VENV
+    source ${DEFAULT_VENV}/bin/activate
+    pip install -e ${THIS_DIR}/third-party/ChipChat
 }
 
 function mk-user-dirs() {
