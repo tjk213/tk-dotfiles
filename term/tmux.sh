@@ -148,7 +148,7 @@ function tmux-config-gpu()
 
     # Split and launch nvtop
     tmux split-window -v
-    tmux send-keys 'nvtop' C-m
+    tmux send-keys 'nvtop -f' C-m
     # We would prefer to resize this pane directly with -y 3, but this unfortunately
     # adds the new space to the pane below rather than the pane above. There may be
     # a method for specifying the "primary" pane or something like that, but I'm not
