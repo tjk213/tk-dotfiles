@@ -189,6 +189,23 @@ function tmux-nv()
     tmux attach -t $SESSION
 }
 
+function tmux-all()
+{
+    SESSION="all"
+    tmux has-session -t $SESSION &> /dev/null
+
+    if [[ $? != 0 ]] ; then
+	tmux-new-session $SESSION
+	tmux-config-chipchat
+	tmux-config-cpu
+	tmux-config-gpu
+    fi
+
+    # Attach!
+    tmux attach -t $SESSION
+}
+
 alias tmn='tmux-nv'
+alias tma='tmux-all'
 alias tmd='tmux-default'
 alias tmk='tmux kill-server'
