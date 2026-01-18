@@ -4,3 +4,6 @@
 [submodule "third-party/editorconfig-emacs"]
 	path = third-party/editorconfig-emacs
 	url = git@github.com:editorconfig/editorconfig-emacs.git
+[submodule "third-party/ChipChat"]
+	path = third-party/ChipChat
+	url = git@github.com:tjk213/ChipChat.git
