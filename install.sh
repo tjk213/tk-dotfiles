@@ -20,6 +20,11 @@ function init-system-debian()
     fi
 }
 
+function init-system-freebsd()
+{
+
+}
+
 function init-system-macos()
 {
     ## Unautomated packages. These need to be installed manually, may need
@@ -73,6 +78,8 @@ function init-system()
     echo "Initializing system..."
     if [[ "$OSTYPE" == "darwin"* ]]; then
 	init-system-macos
+    elif [[ "$OSTYPE" == "freebsd"* ]]; then
+	init-system-freebsd
     else
 	init-system-debian
     fi
