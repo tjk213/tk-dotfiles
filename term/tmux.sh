@@ -109,7 +109,7 @@ function tmux-config-chipchat()
 {
     # Get height of original pane before we split.
     total_height=$(tmux display-message -p '#{pane_height}')
-    chipchat_height=9 # Assume two rows for now
+    chipchat_height=$(chipchat --height)
 
     # Start ChipChat pane
     tmux split-window -v
