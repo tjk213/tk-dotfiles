@@ -162,50 +162,29 @@ function tmux-config-gpu()
 # Otherwise, create it and attach.
 function tmux-default()
 {
-    DEFAULT_SESSION="default"
-    tmux has-session -t $DEFAULT_SESSION &> /dev/null
-
-    if [[ $? != 0 ]] ; then
-	tmux-new-session $DEFAULT_SESSION
-	tmux-config-cpu
-    fi
-
-    # Attach!
-    tmux attach -t $DEFAULT_SESSION
-}
-
-function tmux-nv()
-{
-    SESSION="nv"
+    SESSION="default"
     tmux has-session -t $SESSION &> /dev/null
 
     if [[ $? != 0 ]] ; then
 	tmux-new-session $SESSION
+
+	# If we have a chipchat config, then build a chipchat pane.
+	if [[ -f ~/.config/chipchat/config.yaml ]]; then
+	    tmux-config-chipchat
+	fi
+
+	# Initialize CPU pane
 	tmux-config-cpu
-	tmux-config-gpu
+
+	# If we have one or more GPUs, then build a GPU pane.
+	if [[ $(get-num-gpus) -gt 0 ]]; then
+	    tmux-config-gpu
+	fi
     fi
 
     # Attach!
     tmux attach -t $SESSION
 }
 
-function tmux-all()
-{
-    SESSION="all"
-    tmux has-session -t $SESSION &> /dev/null
-
-    if [[ $? != 0 ]] ; then
-	tmux-new-session $SESSION
-	tmux-config-chipchat
-	tmux-config-cpu
-	tmux-config-gpu
-    fi
-
-    # Attach!
-    tmux attach -t $SESSION
-}
-
-alias tmn='tmux-nv'
-alias tma='tmux-all'
 alias tmd='tmux-default'
 alias tmk='tmux kill-server'
