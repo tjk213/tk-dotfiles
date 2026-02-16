@@ -1,3 +1,3 @@
 build --config=release
+#build --config=debug-modular
 build --config=disable-mypy
-
