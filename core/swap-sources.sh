@@ -31,8 +31,13 @@ if [[ "$OSTYPE" == "linux"* ]]; then
     done
 # If we're on mac we'll use m1ddc
 elif [[ "$OSTYPE" == "darwin"* ]]; then
+    # Explicitly use m1ddc full path so we can register into Shortcuts,
+    # which doesn't have /opt in its PATH.
+    m1ddc=/opt/homebrew/bin/m1ddc
+
     # Get number of displays
-    num_displays=$(m1ddc display list | wc -l)
+    num_displays=$($m1ddc display list | wc -l)
+
     # Switch all screens to DisplayPort (0x0f)
     # TODO: Generalize this
     #   - we should at least check to see if the current display has a DP connection
@@ -41,7 +46,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     # display. As far as I can tell this does no harm, but it might be one part of
     # all the window resizing issues.
     for i in $(seq $num_displays); do
-	m1ddc display $i set input 15
+	$m1ddc display $i set input 15
     done
 else
     echo 1>&2 "ERROR: Unexpected OS"
