@@ -83,7 +83,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     # from highest ID to lowest.
     $m1ddc display list | grep -vn "null" | cut -d: -f1 | tail -r | while read i; do
 	run_logged $i $m1ddc display $i set input 15
-	sleep 1 # m1ddc doesn't like operating at a high frequency for some reason.
+	sleep 0.1 # m1ddc doesn't like operating at a high frequency for some reason.
     done
 else
     echo 1>&2 "ERROR: Unexpected OS"
