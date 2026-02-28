@@ -18,6 +18,24 @@
 ####################################################################################
 ####################################################################################
 
+LOG_FILE=/tmp/swap-sources.log
+
+log() {
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - $*" >> "$LOG_FILE"
+}
+
+run_logged() {
+    # First argument is index used only for logging
+    local display=$1
+    shift
+    # Remaining args get executed
+    local output status
+    output=$("$@" 2>&1)
+    status=$?
+    log "display: $display exit: $status output: $output"
+    return $status
+}
+
 # If we're on linux we'll use ddcutil
 if [[ "$OSTYPE" == "linux"* ]]; then
     # Get number of displays
@@ -48,7 +66,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     #   - we should at least check to see if the current display has a DP connection
     #   - it would be good to parameterize so we can switch to any desired input
     $m1ddc display list | grep -vn "null" | cut -d: -f1 | while read i; do
-	$m1ddc display $i set input 15
+	run_logged $i $m1ddc display $i set input 15
 	sleep 1 # m1ddc doesn't like operating at a high frequency for some reason.
     done
 else
