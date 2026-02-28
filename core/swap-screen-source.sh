@@ -22,8 +22,10 @@
 if [[ "$OSTYPE" == "linux"* ]]; then
     # Get number of displays
     num_displays=$(ddcutil detect --brief | grep Display | wc -l)
-    # Switch to USB-C input (0x1b)
-    # TODO: Generalize this - currently hardcoded to switch to usb-c.
+    # Switch all screens to USB-C input (0x1b)
+    # TODO: Generalize this
+    #   - we should at least check to see if the current display has a usb-c connection
+    #   - it would be good to parameterize so we can switch to any desired input
     for i in $(seq $num_displays); do
 	ddcutil setvcp 0x60 0x1b --display $i
     done
@@ -31,8 +33,13 @@ if [[ "$OSTYPE" == "linux"* ]]; then
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     # Get number of displays
     num_displays=$(m1ddc display list | wc -l)
-    # Switch to DisplayPort (0x0f)
-    # TODO: Generalize this - currently hardcoded to switch to display-port
+    # Switch all screens to DisplayPort (0x0f)
+    # TODO: Generalize this
+    #   - we should at least check to see if the current display has a DP connection
+    #   - it would be good to parameterize so we can switch to any desired input
+    # E.g., on the Modular M1 laptop this will send an input code to builtin apple
+    # display. As far as I can tell this does no harm, but it might be one part of
+    # all the window resizing issues.
     for i in $(seq $num_displays); do
 	m1ddc display $i set input 15
     done
