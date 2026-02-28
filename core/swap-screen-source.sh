@@ -34,7 +34,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     # Switch to DisplayPort (0x0f)
     # TODO: Generalize this - currently hardcoded to switch to display-port
     for i in $(seq $num_displays); do
-	m1ddc display $i set input 0x0f
+	m1ddc display $i set input 15
     done
 else
     echo 1>&2 "ERROR: Unexpected OS"
