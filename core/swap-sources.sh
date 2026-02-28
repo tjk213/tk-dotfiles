@@ -47,6 +47,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     # all the window resizing issues.
     for i in $(seq $num_displays); do
 	$m1ddc display $i set input 15
+	sleep 1 # m1ddc doesn't like operating at a high frequency for some reason.
     done
 else
     echo 1>&2 "ERROR: Unexpected OS"
