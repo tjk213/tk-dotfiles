@@ -62,9 +62,18 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     #
     # ...the null screen is the builtin display. We don't want to / cannot switch it
     # so we filter it out with grep.
+    #
     # TODO: Generalize this
     #   - we should at least check to see if the current display has a DP connection
     #   - it would be good to parameterize so we can switch to any desired input
+    #
+    # NOTE: On my modular M1 macbook, the first display is often printing errors
+    # about a "DDC communication failure" and returning non-zero, even though the
+    # display switches as desired. Presumably, this means that m1ddc is trying to
+    # read back the results for verification, but that's failing because the monitor
+    # is already gone. ddcutil actually has switches to disable verification, but no
+    # such thing available with m1ddc. To keep an eye on this, we log output & exit
+    # codes to the log file.
     $m1ddc display list | grep -vn "null" | cut -d: -f1 | while read i; do
 	run_logged $i $m1ddc display $i set input 15
 	sleep 1 # m1ddc doesn't like operating at a high frequency for some reason.
