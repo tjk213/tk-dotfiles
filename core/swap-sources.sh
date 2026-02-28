@@ -81,6 +81,11 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     # display 2 before display 3, for example, does seem to cause display 3 to fail
     # sometimes. For this reason, we add a pipe through `tail -r` so we switch the displays
     # from highest ID to lowest.
+    #
+    # NOTE: Tried registering the keyboard shortcut via builtin "Shortcuts" app but it was
+    # a nightmare. It would work ok when Shortcuts was in focus; lots of issues otherwise.
+    # Eventually switched to Raycast; working well enough so far.
+    #
     $m1ddc display list | grep -vn "null" | cut -d: -f1 | tail -r | while read i; do
 	run_logged $i $m1ddc display $i set input 15
 	sleep 0.1 # m1ddc doesn't like operating at a high frequency for some reason.
