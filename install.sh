@@ -9,6 +9,7 @@ function init-system-debian()
     DEBIAN_PACKAGES+=(clang llvm lld lldb ccache cmake)
     DEBIAN_PACKAGES+=(tmux git git-lfs emacs)
     DEBIAN_PACKAGES+=(moreutils) # Install sponge
+    DEBIAN_PACKAGES+=(ddcutil)
     DEBIAN_PACKAGES+=(htop nvtop)
 
     sudo apt-get update
@@ -39,6 +40,7 @@ function init-system-macos()
     HOMEBREW_PACKAGES=(coreutils)    # Install GNU utils like `ls` as `gls`
     HOMEBREW_PACKAGES+=(util-linux)  # Install GNU column & more
     HOMEBREW_PACKAGES+=(sponge emacs tmux htop)
+    HOMEBREW_PACKAGES+=(m1ddc)
     HOMEBREW_PACKAGES+=(bitwarden)
 
     brew install ${HOMEBREW_PACKAGES}
