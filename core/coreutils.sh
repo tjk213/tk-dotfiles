@@ -75,6 +75,7 @@ alias e='emacs'
 alias py3='python3'
 alias grep='grep --color=auto'
 alias backup="${TKD}/core/backup.py"
+alias sudo='sudo ' # enable aliases through sudo
 
 ##
 ## Git aliases
