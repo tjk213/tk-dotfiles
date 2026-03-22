@@ -1,0 +1,38 @@
+############################################################### -*- conf -*- #######
+##               ,:                                                         ,:    ##
+##             ,' |                                                       ,' |    ##
+##            /   :                                                      /   :    ##
+##         --'   /       :::::::::::   :::::::::::   :::    :::       --'   /     ##
+##         \/ />/           :+:            :+:       :+:   :+:        \/ />/      ##
+##         / /_\           +:+            +:+       +:+  +:+          / /_\       ##
+##      __/   /           +#+            +#+       +#++:++         __/   /        ##
+##      )'-. /           +#+            +#+       +#+  +#+         )'-. /         ##
+##      ./  :\          #+#        #+# #+#       #+#   #+#         ./  :\         ##
+##       /.' '         ###         #####        ###    ###          /.' '         ##
+##     '/'                                                        '/'             ##
+##     +                                                          +               ##
+##    '                                                          '                ##
+####################################################################################
+##            Copyright © 2026 Tyler J. Kenney. All rights reserved.              ##
+####################################################################################
+####################################################################################
+
+## NOTE: This is currently not auto-installed!
+## NOTE: Install by symlink to: ~/.config/systemd/user/xremap.service
+##
+## systemctl --user daemon-reload
+## systemctl --user enable --now xremap.service
+
+[Unit]
+Description=xremap key remapper
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/home/tk/.cargo/bin/xremap --watch %h/.config/xremap/config.yaml
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=default.target
+

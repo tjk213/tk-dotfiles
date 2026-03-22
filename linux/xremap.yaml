@@ -1,0 +1,36 @@
+####################################################################################
+##               ,:                                                         ,:    ##
+##             ,' |                                                       ,' |    ##
+##            /   :                                                      /   :    ##
+##         --'   /       :::::::::::   :::::::::::   :::    :::       --'   /     ##
+##         \/ />/           :+:            :+:       :+:   :+:        \/ />/      ##
+##         / /_\           +:+            +:+       +:+  +:+          / /_\       ##
+##      __/   /           +#+            +#+       +#++:++         __/   /        ##
+##      )'-. /           +#+            +#+       +#+  +#+         )'-. /         ##
+##      ./  :\          #+#        #+# #+#       #+#   #+#         ./  :\         ##
+##       /.' '         ###         #####        ###    ###          /.' '         ##
+##     '/'                                                        '/'             ##
+##     +                                                          +               ##
+##    '                                                          '                ##
+####################################################################################
+##            Copyright © 2026 Tyler J. Kenney. All rights reserved.              ##
+####################################################################################
+####################################################################################
+
+## NOTE: This is currently not auto-installed!
+## NOTE: Install by symlink to: ~/.config/xremap/config.yaml
+
+keymap:
+  - name: mac-style
+    application:
+      only: [libreoffice-calc, firefox-esr, signal]
+    remap:
+      Super-x: Ctrl-x                 # cut
+      Super-c: Ctrl-c                 # copy
+      Super-v: Ctrl-v                 # paste
+      Super-z: Ctrl-z                 # undo
+      Super-Shift-z: Ctrl-Shift-z     # redo
+      Super-s: Ctrl-s                 # save
+      Super-b: Ctrl-b                 # bold
+      Super-i: Ctrl-i                 # italicize
+      Super-u: Ctrl-u                 # underline
