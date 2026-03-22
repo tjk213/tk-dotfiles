@@ -139,6 +139,7 @@ function install-dotfiles()
     ln -rfs ${THIS_DIR}/editor/tk.editorconfig ${HOME}/.editorconfig
     ln -rfs ${THIS_DIR}/stat/${HTOP_CONFIG}    ${HTOP_RC_PATH}            # Stat
     ln -rfs ${THIS_DIR}/term/tk.tmux.conf      ${HOME}/.tmux.conf         # Term
+    ln -rfs ${THIS_DIR}/term/ssh.conf          ${HOME}/.ssh/config
     ln -rfs ${THIS_DIR}/toolchain/tk.gdbinit   ${HOME}/.gdbinit           # Toolchain
     ln -rfs ${THIS_DIR}/vcs/tk.gitignore       ${HOME}/.gitignore         # VCS
     ln -rfs ${THIS_DIR}/vcs/tk.gitconfig       ${HOME}/.gitconfig
