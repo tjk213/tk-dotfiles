@@ -42,6 +42,14 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 
 ##
+## Security Checks
+##
+
+if [[ -f /var/run/reboot-required ]]; then
+    echo "/var/run/reboot-required: ************ Reboot required ************"
+fi
+
+##
 ## Fundamental aliases
 ##
 ## Some of these make use of GNU coreutils - see setup_macos.sh
