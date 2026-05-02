@@ -25,6 +25,22 @@ keymap:
     application:
       only: [libreoffice-calc, firefox-esr, signal]
     remap:
+      # XRemap has a rather bad design that catches our remap for eg. super-s even
+      # when the user presses super-ctrl-s. so before we set any of our actual remaps
+      # for super-foo, make sure that super-ctrl-foo gets forwarded without any changes.
+      #
+      # Note: This same issue likely occurs for something like shift, we might need to
+      # add more forwards in the future.
+      Super-Ctrl-x:       Super-Ctrl-x
+      Super-Ctrl-c:       Super-Ctrl-c
+      Super-Ctrl-v:       Super-Ctrl-v
+      Super-Ctrl-z:       Super-Ctrl-z
+      Super-Ctrl-Shift-z: Super-Ctrl-Shift-z
+      Super-Ctrl-s:       Super-Ctrl-s
+      Super-Ctrl-b:       Super-Ctrl-b
+      Super-Ctrl-i:       Super-Ctrl-i
+      Super-Ctrl-u:       Super-Ctrl-u
+
       Super-x: Ctrl-x                 # cut
       Super-c: Ctrl-c                 # copy
       Super-v: Ctrl-v                 # paste
