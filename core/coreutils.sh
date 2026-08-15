@@ -24,6 +24,7 @@
 ##
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
+    PATH=/opt/homebrew/bin:$PATH
     PATH=/opt/homebrew/opt/util-linux/bin:$PATH
 
     #
