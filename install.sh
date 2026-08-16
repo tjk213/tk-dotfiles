@@ -94,6 +94,7 @@ function init-python()
     SKIP_VENV_ACTIVATION=1 source ${THIS_DIR}/core/coreutils.sh
     python${DEFAULT_PYTHON_VERSION} -mvenv $DEFAULT_VENV
     source ${DEFAULT_VENV}/bin/activate
+    pip install -r ${THIS_DIR}/third-party/ChipChat/requirements.txt
     pip install -e ${THIS_DIR}/third-party/ChipChat
 }
 
