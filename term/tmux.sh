@@ -124,7 +124,9 @@ function tmux-config-chipchat()
 
 function get-num-gpus()
 {
-    if [[ -x "$(command -v amd-smi)" ]]; then
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+	NUM_GPUS=1
+    elif [[ -x "$(command -v amd-smi)" ]]; then
 	# amd-smi includes a header row, so subtract 1
 	# NB: current version seems to also include a blank line at the end, but only
 	# in interactive shells. so we can ignore that here.
