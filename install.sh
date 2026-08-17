@@ -41,7 +41,6 @@ function init-system-macos()
     HOMEBREW_PACKAGES+=(util-linux)  # Install GNU column & more
     HOMEBREW_PACKAGES+=(sponge emacs tmux htop nvtop)
     HOMEBREW_PACKAGES+=(m1ddc)
-    HOMEBREW_PACKAGES+=(python)
     HOMEBREW_PACKAGES+=(smartmontools) # Needed for chipchat SSD temp
     HOMEBREW_PACKAGES+=(bitwarden)
 
