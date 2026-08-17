@@ -3,6 +3,10 @@
 set -e
 THIS_DIR="${0:A:h}"
 
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    alias ln='gln'
+fi
+
 function init-system-debian()
 {
     DEBIAN_PACKAGES=(build-essential xclip)
@@ -130,9 +134,6 @@ function install-dotfiles()
     mkdir -p $(dirname ${HTOP_RC_PATH})
 
     # Link secondary dotfiles
-    if [[ "$OSTYPE" == "darwin"* ]]; then
-	alias ln='gln'
-    fi
 
     ln -rfs ${THIS_DIR}/core/tk.inputrc        ${HOME}/.inputrc           # Core
     ln -rfs ${THIS_DIR}/editor/tk.emacs        ${HOME}/.emacs             # Editor
