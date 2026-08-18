@@ -42,6 +42,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     PATH=/opt/homebrew/anaconda3/bin:$PATH
 fi
 
+PATH=$HOME/.local/bin/:$PATH # Claude installation dir
+
 ##
 ## Security Checks
 ##
